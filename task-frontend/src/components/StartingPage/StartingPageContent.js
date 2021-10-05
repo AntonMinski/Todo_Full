@@ -3,8 +3,9 @@ import React, {useEffect, useState, useContext, useCallback} from "react";
 import AuthContext from '../../store/auth-context'; 
 import { GetTasks, addTask, completeTask, deleteTask } from "../../api/task.api";
 
-import TaskItem from '../TaskItem'
-import AddTask from '../AddTask'
+import TaskItem from '../Task/TaskItem'
+import AddTask from '../Task/AddTask'
+import FilterTask from "../Task/FilterTask";
 
 
 
@@ -13,6 +14,7 @@ const StartingPageContent = () => {
   const token = authCtx.token;
   
   const [tasks, setTasks] = useState([]);
+  const [searchResults, setSearchResults] = React.useState([]);  // for filter, sending it in props later
   
   useEffect(() => {
     getTasks()
@@ -61,11 +63,19 @@ const handleDeleteTask = (id) => {
     .catch((err) => console.log(err))
 }
 
+  // if search input are empty, not filter anything:
+  let filtered_tasks;
+  if (searchResults.length > 0) {
+     filtered_tasks = searchResults;
+     }
+  else { filtered_tasks = tasks }
+
   return (
     <div className='App'>
       <h1>My Todos</h1>
       <AddTask saveTodo={handleSaveTodo} />
-      {tasks.map((task) => (
+      <FilterTask tasks={tasks} searchResults={searchResults} setSearchResults={setSearchResults} />
+      {filtered_tasks.map((task) => (
         <TaskItem
           key={task.id}
           updateTodo={hadleComplteteTask}
