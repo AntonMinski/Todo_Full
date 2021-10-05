@@ -5,6 +5,9 @@ import './index.css';
 import App from './App';
 import { AuthContextProvider } from './store/auth-context';
 
+import store from './app/store';
+import { Provider } from 'react-redux'
+
 ReactDOM.render(
   <AuthContextProvider>
     <BrowserRouter>
