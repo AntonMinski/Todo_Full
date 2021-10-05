@@ -1,9 +1,9 @@
 
 import { User } from 'src/user/model/user.entity';
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, BaseEntity } from 'typeorm';
 
-@Entity()
-export class Task {
+@Entity('tasks')
+export class Task  {
   @PrimaryGeneratedColumn()
   id: number;
 

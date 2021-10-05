@@ -1,0 +1,49 @@
+.Top_header {
+    flex: 3;
+    display: inline-block;
+    margin: 0 4rem;
+    width: 60%;
+    text-align: center;
+    white-space: nowrap; 
+}
+
+.Task_search {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    padding: 0.2rem;
+    /* background: #444; */
+    margin-bottom: 1rem;
+    flex-wrap: nowrap;
+}
+
+.Task_search > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Task_search input {
+    flex: 1;
+    background: #f5f6f7;
+    padding: 0.5rem 0.2rem;
+    border: 1px solid #ff9900;
+    border-radius: 18px;
+    display: block;
+    margin: 0.3rem 1rem 0 0;
+    width: 200px;
+    height: 30px;
+}
+
+
+.Task_search label {
+}
+
+.Task_search button {
+    background: #ff9900;
+    color: #fff;
+    padding: 0.5rem 0.2rem;
+    border-radius: 20px;
+    cursor: pointer;
+    border: none;
+}

@@ -7,6 +7,7 @@ import TaskItem from '../Task/TaskItem'
 import AddTask from '../Task/AddTask'
 import FilterTask from "../Task/FilterTask";
 
+import classes from './StartingPageContent'
 
 
 const StartingPageContent = () => {
@@ -72,9 +73,8 @@ const handleDeleteTask = (id) => {
 
   return (
     <div className='App'>
-      <h1>My Todos</h1>
+        <FilterTask tasks={tasks} searchResults={searchResults} setSearchResults={setSearchResults} />
       <AddTask saveTodo={handleSaveTodo} />
-      <FilterTask tasks={tasks} searchResults={searchResults} setSearchResults={setSearchResults} />
       {filtered_tasks.map((task) => (
         <TaskItem
           key={task.id}

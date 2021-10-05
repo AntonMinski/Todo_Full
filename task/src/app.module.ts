@@ -10,19 +10,25 @@ import { AuthModule } from './auth/auth.module';
 import { CommonModule } from './common/common.module';
 import { HttpLoggerMiddleware } from '@nest-toolbox/http-logger-middleware';
 
+import { ConfigModule } from '@nestjs/config';
+import { typeOrmConfigAsync } from './config/typeorm.config';
+
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: 'user',
-      database: 'todo',
-      autoLoadEntities: true,
-      synchronize: true,
-    }),
+    ConfigModule.forRoot({ isGlobal: true }),
+    TypeOrmModule.forRootAsync(typeOrmConfigAsync),
+    // ConfigModule.forRoot(),
+    // TypeOrmModule.forRoot({
+    //   type: 'postgres',
+    //   host: 'localhost',
+    //   port: 5432,
+    //   username: 'postgres',
+    //   password: 'user',
+    //   database: 'todo',
+    //   autoLoadEntities: true,
+    //   synchronize: true,
+    // }),
     TodoModule,
     UserModule,
     JwtModule.register({

@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import classes from './FilterTask.module.css'
 
 
 const FilterTask = ({ tasks, setSearchResults }) => {
@@ -26,12 +27,14 @@ const FilterTask = ({ tasks, setSearchResults }) => {
   }, [searchTerm]);
 
   return (
-    <div className='Form'>
-        <div>
-          {/* <label htmlFor='task'>Find Task</label> */}
+    <form className={classes.Task_search}>
+        <h1 className={classes.Top_header}>My Todos</h1>
+                 {/* <label htmlFor='task'>Find Task</label> */}
+          
           <input onChange={handleChange} value={searchTerm} type='text' id='task' placeholder="Search" />
-        </div>
-    </div>
+              
+          
+    </form>
   )
 }
 
