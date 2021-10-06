@@ -1,4 +1,5 @@
 import React, {useEffect, useState, useContext, useCallback} from "react";
+import { useSelector, useDispatch} from 'react-redux';
 
 import AuthContext from '../../store/auth-context'; 
 import { GetTasks, addTask, completeTask, deleteTask } from "../../api/task.api";
@@ -6,6 +7,12 @@ import { GetTasks, addTask, completeTask, deleteTask } from "../../api/task.api"
 import TaskItem from '../Task/TaskItem'
 import AddTask from '../Task/AddTask'
 import FilterTask from "../Task/FilterTask";
+
+// import { authActions } from '../../store/auth-slice';
+import { taskActions } from '../../store/task-slice';
+
+
+
 
 import classes from './StartingPageContent'
 
@@ -17,22 +24,31 @@ const StartingPageContent = () => {
   const [tasks, setTasks] = useState([]);
   const [searchResults, setSearchResults] = React.useState([]);  // for filter, sending it in props later
   
+  
+  // const token = storeToken;
+  const stateToken = useSelector(state => state.auth.token);
+  const storeTasks = useSelector(state => state.task.tasks);
+  const dispatch = useDispatch();
+ 
+
   useEffect(() => {
     getTasks()
   }, []);
 
   const getTasks = useCallback(() => {
-    GetTasks(token)
+    console.log('stateToken', stateToken)
+    GetTasks(stateToken)
     .then(response => { 
-      setTasks(response.data);
+      // setTasks(response.data);
+      dispatch(taskActions.setTasks(response.data));
     })
     .catch(err => console.log(err));
-  }, []); 
+  }, [] );
 
  
-  const handleSaveTodo = (e, formData) => {
+  const handleSaveTodo = useCallback((e, formData) => {
     e.preventDefault()
-    addTask(formData, token)
+    addTask(formData, stateToken)
     .then(({ status, data }) => {
      if (status !== 201) {
        throw new Error('Error! Task not saved')
@@ -40,10 +56,10 @@ const StartingPageContent = () => {
      getTasks();
    })
    .catch((err) => console.log(err))
- }
+ }, []);
 
- const hadleComplteteTask = (id) => {
-  completeTask(id, token)
+ const hadleComplteteTask = useCallback((id) => {
+  completeTask(id, stateToken)
   .then(({ status, data }) => {
       if (status !== 200) {
         throw new Error('Error! Todo not updated')
@@ -51,10 +67,10 @@ const StartingPageContent = () => {
       getTasks();
     })
     .catch((err) => console.log(err))
-}
+}, []);
 
-const handleDeleteTask = (id) => {
-  deleteTask(id, token)
+const handleDeleteTask = useCallback((id) => {
+  deleteTask(id, stateToken)
   .then(({ status, data }) => {
       if (status !== 200) {
         throw new Error('Error! Todo not deleted')
@@ -62,17 +78,18 @@ const handleDeleteTask = (id) => {
       getTasks();
     })
     .catch((err) => console.log(err))
-}
+}, []);
 
   // if search input are empty, not filter anything:
   let filtered_tasks;
   if (searchResults.length > 0) {
      filtered_tasks = searchResults;
      }
-  else { filtered_tasks = tasks }
+  else { filtered_tasks = storeTasks }
 
   return (
     <div className='App'>
+      {storeTasks.length}
         <FilterTask tasks={tasks} searchResults={searchResults} setSearchResults={setSearchResults} />
       <AddTask saveTodo={handleSaveTodo} />
       {filtered_tasks.map((task) => (
@@ -83,6 +100,7 @@ const handleDeleteTask = (id) => {
           todo={task}
         />
       ))}
+      
     </div>
   )
 

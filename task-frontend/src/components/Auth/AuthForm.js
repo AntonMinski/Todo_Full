@@ -5,6 +5,9 @@ import axios from 'axios';
 import classes from './AuthForm.module.css';
 import AuthContext from '../../store/auth-context';
 
+import { useDispatch } from 'react-redux';
+import { authActions } from '../../store/auth-slice';
+
 
 const AuthForm = () => {
   const history = useHistory();
@@ -13,8 +16,9 @@ const AuthForm = () => {
   const passwordInputRef = useRef();
   const passwordConfirmRef = useRef();
 
-
   const authCtx = useContext(AuthContext);
+
+  const dispatch = useDispatch();
 
 
   const [isLogin, setIsLogin] = useState(true);
@@ -51,6 +55,8 @@ const AuthForm = () => {
   .then(response => 
     { 
       authCtx.login(response.data.access_token);
+
+      dispatch(authActions.setLogin(response.data.access_token))
 
       history.replace('/'); // redirect after login
     })
