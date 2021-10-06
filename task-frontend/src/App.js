@@ -6,6 +6,7 @@ import Layout from './components/Layout/Layout';
 import AuthPage from './pages/AuthPage';
 import HomePage from './pages/HomePage';
 import AuthContext from './store/auth-context';
+import {TokenStore} from '../src/mobx/TokenStore'
 
 function App() {
   const autCtx = useContext(AuthContext);
@@ -16,12 +17,12 @@ function App() {
       <Switch>
             
               <Route path='/' exact>
-              {autCtx.isLoggeiIn && <HomePage />}
+              {autCtx.isLoggeiIn && <HomePage store={TokenStore} />}
               {!autCtx.isLoggeiIn && <Redirect to='/auth' />}
             </Route>
          
         {!autCtx.isLoggeiIn && (
-            <Route path='/auth'>
+            <Route store={TokenStore} path='/auth'>
             <AuthPage /> 
           </Route>
         )}
