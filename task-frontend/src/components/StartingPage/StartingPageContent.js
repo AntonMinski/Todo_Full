@@ -37,7 +37,7 @@ const StartingPageContent = () => {
 
   const getTasks = useCallback(() => {
     console.log('stateToken', stateToken)
-    GetTasks(stateToken)
+    GetTasks()
     .then(response => { 
       // setTasks(response.data);
       dispatch(taskActions.setTasks(response.data));
@@ -48,7 +48,7 @@ const StartingPageContent = () => {
  
   const handleSaveTodo = useCallback((e, formData) => {
     e.preventDefault()
-    addTask(formData, stateToken)
+    addTask(formData)
     .then(({ status, data }) => {
      if (status !== 201) {
        throw new Error('Error! Task not saved')
@@ -59,7 +59,7 @@ const StartingPageContent = () => {
  }, []);
 
  const hadleComplteteTask = useCallback((id) => {
-  completeTask(id, stateToken)
+  completeTask(id)
   .then(({ status, data }) => {
       if (status !== 200) {
         throw new Error('Error! Todo not updated')
@@ -70,7 +70,7 @@ const StartingPageContent = () => {
 }, []);
 
 const handleDeleteTask = useCallback((id) => {
-  deleteTask(id, stateToken)
+  deleteTask(id)
   .then(({ status, data }) => {
       if (status !== 200) {
         throw new Error('Error! Todo not deleted')

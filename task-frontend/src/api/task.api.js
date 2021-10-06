@@ -1,53 +1,52 @@
 import axios from 'axios'
+import api from './axios.api';
 
 const baseUrl = `${process.env.REACT_APP_BASE_URL}/tasks`
 
 
 
-export const GetTasks = async (token) => {
+export const GetTasks = async () => {
   try {
-    const todos = await axios.get( baseUrl, {
-      headers: {
-        'content-type': "application/json",
-        'Authorization': `Bearer ${token}`
-    }
-    });
+    const todos = await api.get( baseUrl
+    //   , {
+    //   headers: {
+    //     'content-type': "application/json",
+    //     'Authorization': `Bearer ${token}`
+    // }
+    // }
+    );
     return todos
   } catch (error) {
     console.log(error);
   }
 }
 
-export const addTask = async (formData, token) => {
+export const addTask = async (formData) => {
   try {
     const config = {
       method: "POST",
       url: baseUrl,
       data: { task: formData.task },
-      headers: {
-                'content-type': "application/json",
-                'Authorization': `Bearer ${token}`
-              },
+      // headers: {
+      //           'content-type': "application/json",
+      //           'Authorization': `Bearer ${token}`
+      //         },
     }    
-    const saveTodo = await axios(config);
+    const saveTodo = await api(config);
     return saveTodo;
   } catch (error) {
     throw new Error(error);
   }
 }
 
-export const completeTask = async (id, token) => {
+export const completeTask = async (id) => {
   try {
     const config = {
       method: "PATCH",
       url: `${baseUrl}/${id}`,
       data: { 'isActive': false },
-      headers: {
-                'content-type': "application/json",
-                'Authorization': `Bearer ${token}`
-              },
     }    
-    const updatedTask = await axios(config)
+    const updatedTask = await api(config)
     return updatedTask
   } catch (error) {
     throw new Error(error)
@@ -59,12 +58,8 @@ export const deleteTask = async (id, token) => {
     const config = {
       method: "DELETE",
       url: `${baseUrl}/${id}`,
-      headers: {
-                'content-type': "application/json",
-                Authorization: `Bearer ${token}`
-              },
     }
-    const deletedTask = await axios(config);
+    const deletedTask = await api(config);
     return deletedTask
   } catch (error) {
     throw new Error(error)
