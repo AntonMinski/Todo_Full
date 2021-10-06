@@ -10,6 +10,7 @@ import { Param, Body, ClassSerializerInterceptor, Controller, Get, Post,
  import {AuthService} from "../auth/auth.service";
  import {Request} from 'express';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { GetUser } from 'src/auth/guards/get-user.decorator';
  JwtAuthGuard
  
  
@@ -24,12 +25,13 @@ import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
      private authService: AuthService
  ) {
  }
- 
+   // admin/development only
    @Get()
    async all(@Query('page') page = 1) {
      return this.service.findAll();
  }
- 
+
+    // admin/development only
    @Post()
    async create(@Body() body: UserCreateDto): Promise<User> {
          const password = await bcrypt.hash('1234', 12);
@@ -43,26 +45,26 @@ import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
  
      }
  
-     @Get(':id')
-     async get(@Param('id') id: number) {
-         return this.service.findOne({id}, ['role']);
-     }
+    //  @Get(':id')
+    //  async get(@Param('id') id: number) {
+    //      return this.service.findOne({id});
+    //  }
  
      @Put('info')
      async updateInfo(
-         @Req() request: Request,
+         @GetUser() user: User,
          @Body() body: UserUpdateDto
      ) {
-         const id = await this.authService.userId(request);
  
-         await this.service.update(id, body);
+         await this.service.update(user.id, body);
+
+         return { message: 'User Info updated', body}
  
-         return this.service.findOne({id});
      }
- 
+     
      @Put('password')
      async updatePassword(
-         @Req() request: Request,
+         @GetUser() user: User,
          @Body('password') password: string,
          @Body('password_confirm') password_confirm: string,
      ) {
@@ -70,38 +72,24 @@ import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
              throw new BadRequestException('Passwords do not match!');
          }
  
-         const id = await this.authService.userId(request);
- 
          const hashed = await bcrypt.hash(password, 12);
  
-         await this.service.update(id, {
+         this.service.update(user.id, {
              password: hashed
          });
  
-         return this.service.findOne({id});
+        //  const result = await this.service.findOne({id: user.id});
+         return { message: 'Password updated'}
      }
  
-     @Put(':id')
-     async update(
-         @Param('id') id: number,
-         @Body() body: UserUpdateDto
-     ) {
-         const {role_id, ...data} = body;
- 
-         await this.service.update(id, {
-             ...data,
-             role: {id: role_id}
-         });
- 
-         this.service.update(id, body);
-       
-  
-         return this.service.findOne({id});
-     };
- 
-     @Delete(':id')
-     async delete(@Param('id') id: number) {
-         return this.service.delete(id);
+    
+     @Delete()
+     async delete(
+         @GetUser() user: User
+         )  {
+         const result = await this.service.delete(user.id);
+
+         return { message: 'user deleted'};
      }
  
  

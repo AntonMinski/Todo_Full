@@ -24,8 +24,8 @@ export class TaskService {
 
     async create(body, user): Promise<any> {
 
-        body.status = 'Active';
-        body.user = user;
+        body.isActive = true;
+        body.user = user.id;
 
         return this.repository.save(body);
     }

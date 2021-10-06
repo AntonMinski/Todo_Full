@@ -18,23 +18,8 @@ import { typeOrmConfigAsync } from './config/typeorm.config';
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRootAsync(typeOrmConfigAsync),
-    // ConfigModule.forRoot(),
-    // TypeOrmModule.forRoot({
-    //   type: 'postgres',
-    //   host: 'localhost',
-    //   port: 5432,
-    //   username: 'postgres',
-    //   password: 'user',
-    //   database: 'todo',
-    //   autoLoadEntities: true,
-    //   synchronize: true,
-    // }),
     TodoModule,
     UserModule,
-    JwtModule.register({
-      secret: 'hard!to-guess_secret',
-      signOptions: { expiresIn: '1d' },
-      }),
     AuthModule,
     CommonModule],
   controllers: [AppController],
