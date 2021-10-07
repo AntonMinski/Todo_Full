@@ -1,7 +1,6 @@
 import React, {useEffect, useState, useCallback} from "react";
 import { useSelector, useDispatch} from 'react-redux';
 
-import AuthContext from '../../store/auth-context'; 
 import { GetTasks, addTask, completeTask, deleteTask } from "../../api/task.api";
 
 import TaskItem from '../Task/TaskItem'
@@ -18,32 +17,28 @@ import { taskActions } from '../../store/task-slice';
 
 
 const StartingPageContent = () => {
-  // const authCtx = useContext(AuthContext);
-  // const token = authCtx.token;
-  
+
+  const [searchTerm, setSearchTerm] = React.useState('');
   const [tasks, setTasks] = useState([]);
   const [searchResults, setSearchResults] = React.useState([]);  // for filter, sending it in props later
   
   
-  // const token = storeToken;
-  // const stateToken = useSelector(state => state.auth.token);
   const storeTasks = useSelector(state => state.task.tasks);
   const dispatch = useDispatch();
  
 
   useEffect(() => {
     getTasks()
-  }, []);
+  }, [searchTerm]);
 
   const getTasks = useCallback(() => {
-    // console.log('stateToken', stateToken)
-    GetTasks()
+    GetTasks(searchTerm)
     .then(response => { 
       // setTasks(response.data);
       dispatch(taskActions.setTasks(response.data));
     })
     .catch(err => console.log(err));
-  }, [] );
+  }, [searchTerm] );
 
  
   const handleSaveTodo = useCallback((e, formData) => {
@@ -81,18 +76,18 @@ const handleDeleteTask = useCallback((id) => {
 }, []);
 
   // if search input are empty, not filter anything:
-  let filtered_tasks;
-  if (searchResults.length > 0) {
-     filtered_tasks = searchResults;
-     }
-  else { filtered_tasks = storeTasks }
+  // let filtered_tasks;
+  // if (searchResults.length > 0) {
+  //    filtered_tasks = searchResults;
+  //    }
+  // else { filtered_tasks = storeTasks }
 
   return (
     <div className='App'>
       {/* {storeTasks.length} */}
-        <FilterTask tasks={tasks} searchResults={searchResults} setSearchResults={setSearchResults} />
+        <FilterTask tasks={tasks} searchResults={searchResults} setSearchResults={setSearchResults} searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       <AddTask saveTodo={handleSaveTodo} />
-      {filtered_tasks.map((task) => (
+      {storeTasks.map((task) => (
         <TaskItem
           key={task.id}
           updateTodo={hadleComplteteTask}
@@ -100,6 +95,7 @@ const handleDeleteTask = useCallback((id) => {
           todo={task}
         />
       ))}
+      {searchTerm}
       
     </div>
   )

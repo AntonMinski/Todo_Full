@@ -1,19 +1,23 @@
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
+import Notification from '../Notification/Notification';
 import AuthContext from '../../store/auth-context'; 
 import classes from './MainNavigation.module.css';
 
 
 const MainNavigation = () => {
   const authCtx = useContext(AuthContext);
-
   const isLoggedIn = authCtx.isLoggedIn;
 
   const logoutHandler = () => {
     authCtx.logout();
     console.log('logged_out');
   }
+
+  // const storeErro = useSelector(state => state.task.tasks);
+
+
 
   
   return (
@@ -36,6 +40,7 @@ const MainNavigation = () => {
           )}
         </ul>
       </div>
+      {/* <Notification /> */}
     </header>
   );
 };

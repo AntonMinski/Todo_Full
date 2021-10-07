@@ -4,9 +4,10 @@ const baseUrl = `${process.env.REACT_APP_BASE_URL}/tasks`
 
 
 
-export const GetTasks = async () => {
+export const GetTasks = async (entered_title) => {
   try {
-    const todos = await api.get( baseUrl
+    // console.log(searchResults)
+    const todos = await api.get( `${baseUrl}/byUser?title=${entered_title}`
      );
     return todos
   } catch (error) {

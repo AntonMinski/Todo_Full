@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import classes from './FilterTask.module.css'
 
 
-const FilterTask = ({ tasks, setSearchResults }) => {
+const FilterTask = ({ tasks, setSearchResults, searchTerm, setSearchTerm }) => {
 //   const [formData, setFormData] = useState()
 
 //   const handleForm = (e) => {
@@ -12,19 +12,19 @@ const FilterTask = ({ tasks, setSearchResults }) => {
 //     })
 //   }
 
-  const [searchTerm, setSearchTerm] = React.useState('');
+  // const [searchTerm, setSearchTerm] = React.useState('');
 //   const [searchResults, setSearchResults] = React.useState([]);
 
   const handleChange = e => {
     setSearchTerm(e.target.value);
   };
 
-  useEffect(() => {
-    const results = tasks.filter(task =>
-    task.task.toLowerCase().includes(searchTerm)
-    );
-    setSearchResults(results);
-  }, [searchTerm]);
+  // useEffect(() => {
+  //   const results = tasks.filter(task =>
+  //   task.task.toLowerCase().includes(searchTerm)
+  //   );
+  //   setSearchResults(results);
+  // }, [searchTerm]);
 
   return (
     <form className={classes.Task_search}>

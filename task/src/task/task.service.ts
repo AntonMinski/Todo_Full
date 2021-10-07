@@ -20,7 +20,7 @@ export class TaskService {
 
     async findByUser(user: User, title: String): Promise<Task[]> {       
         return this.repository.find({ where: { 
-            user: user,
+            user: user.id,
             task: ILike(`%${title}%`)
          } });
     }
@@ -29,7 +29,7 @@ export class TaskService {
 
         body.isActive = true;
         // typeOrm: should get whole User object on ManyToOne relations
-        body.user = user.id;
+        body.user = user;
 
         return this.repository.save(body);
     }

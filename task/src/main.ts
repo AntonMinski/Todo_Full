@@ -23,7 +23,7 @@ async function bootstrap() {
       }
     }),
   );
-  app.use(cookieParser());
+  // app.use(cookieParser());
   app.useGlobalFilters(new HttpExceptionFilter());
   app.use(cors())
   await app.listen(3000);
