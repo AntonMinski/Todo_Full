@@ -1,10 +1,11 @@
 import {Body, Controller, Delete, Get, HttpCode, Param, Patch, Post, Put, Query, UseGuards} from '@nestjs/common';
 import { TaskService } from './task.service';
-import { TaskCreateDto } from './model/create-task.entity';
+import { TaskCreateDto } from './model/dto/create-task.entity';
 import { GetUser } from 'src/auth/guards/get-user.decorator';
 import { User } from 'src/user/model/user.entity';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
-import { TaskUpdateDto } from './model/update-task.entity';
+import { TaskUpdateDto } from './model/dto/update-task.entity';
+import { GetTasksFilterDto } from './model/dto/filter-task.entity';
 
 
 @Controller('tasks')
@@ -14,19 +15,21 @@ export class TodoController {
     }
 
     // This rote just for admin or testing only
+    // @Get()
+    // @HttpCode(200)
+    // async findAll() {
+    //     return this.service.findAll();
+    // }
+
     @Get()
     @HttpCode(200)
-    async findAll() {
-        return this.service.findAll();
-    }
-
-    @Get('/byUser')
-    @HttpCode(200)
-    async allByUser(
+    async findAll(
         @GetUser() user: User,
-        @Query('title') title: String
+        @Query() searchQuery: GetTasksFilterDto
     ) {
-        return this.service.findByUser(user, title);
+        const tasks = await this.service.findByUser(user, searchQuery);
+
+        return { message: 'Sucess', data: tasks, count: tasks.length }
     }
 
     @Post()
@@ -35,7 +38,8 @@ export class TodoController {
         @Body() body: TaskCreateDto,
         @GetUser() user: User
         ) {
-        return this.service.create(body, user);
+        const task = await this.service.create(body, user);
+        return { message: 'task created', data: task }
     }
 
 
@@ -43,7 +47,8 @@ export class TodoController {
     async get(
         @Param('id') id: number,
         @GetUser() user: User) {
-        return this.service.findById(id, user);
+        const task = await this.service.findById(id, user);
+        return { message: 'Sucess', data: task }
     }
 
     @Put(':id')
@@ -54,7 +59,8 @@ export class TodoController {
         @GetUser() user: User
     ) 
     {
-        return this.service.update(id, body, user);
+        const updatedTask = await this.service.update(id, body, user);
+        return { message: 'Task updated', data: updatedTask }
     }
 
     @Patch(':id')
@@ -67,7 +73,7 @@ export class TodoController {
     {
         const updatedTask = await this.service.changeStatus(id, data, user);
 
-        return { message: 'Status updated', task: updatedTask }
+        return { message: 'Status updated', data: updatedTask }
 
 
     }
@@ -80,6 +86,6 @@ export class TodoController {
         ) {
         const deleted_task = await this.service.delete(id, user);
 
-        return { message: 'Task deleted', task: deleted_task}
+        return { message: 'Task deleted', data: deleted_task}
     }
 }

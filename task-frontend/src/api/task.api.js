@@ -7,9 +7,9 @@ const baseUrl = `${process.env.REACT_APP_BASE_URL}/tasks`
 export const GetTasks = async (entered_title) => {
   try {
     // console.log(searchResults)
-    const todos = await api.get( `${baseUrl}/byUser?title=${entered_title}`
+    const todos = await api.get( `${baseUrl}?title=${entered_title}`
      );
-    return todos
+    return todos.data
   } catch (error) {
     console.log(error);
   }
@@ -23,7 +23,7 @@ export const addTask = async (formData) => {
       data: { task: formData.task },
     }    
     const saveTodo = await api(config);
-    return saveTodo;
+    return saveTodo
   } catch (error) {
     throw new Error(error);
   }

@@ -3,6 +3,7 @@ import { Repository, getManager, Like, ILike} from "typeorm";
 import {InjectRepository} from "@nestjs/typeorm";
 import { Task } from './model/entity';
 import { User } from 'src/user/model/user.entity';
+import { GetTasksFilterDto } from './model/dto/filter-task.entity';
 
 
 
@@ -14,16 +15,38 @@ export class TaskService {
         @InjectRepository(Task) private readonly repository: Repository<Task>
     ) {}
 
-    async findAll(): Promise<any[]> {
-        return this.repository.find();
-    }
+    // async findAll(): Promise<any[]> {
+    //     return this.repository.find();
+    // }
 
-    async findByUser(user: User, title: String): Promise<Task[]> {       
+    async findByUser(user: User, searchQuery: GetTasksFilterDto): Promise<Task[]> {  
+        const {title, completed} = searchQuery
+        
         return this.repository.find({ where: { 
             user: user.id,
             task: ILike(`%${title}%`)
+            // isActive: completed, 
          } });
     }
+
+    // async findByUser(user: User, searchQuery: GetTasksFilterDto): Promise<Task[]> {  
+    //     const {title, completed} = searchQuery
+
+    //     const result = await this.repository.createQueryBuilder()
+    //     .where('"userId" = :user', {user: user.id})
+    //     .andWhere('task = :title', {title})
+    //     // .andWhere('"userId" = :user', {user: user.id})
+    //     .getMany()
+
+        
+    //     return result
+        
+    //     // this.repository.find({ where: { 
+    //     //     user: user.id,
+    //     //     task: ILike(`%${title}%`)
+    //     //     // isActive: completed, 
+    //     //  } });
+    // }
 
     async create(body, user): Promise<any> {
 
@@ -86,6 +109,7 @@ export class TaskService {
     .delete()
     .where('id = :id', {id})
     .andWhere('"userId" = :user', {user: user.id})
+    // .andWhereInIds
     .execute();
 
     if (!result) {

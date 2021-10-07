@@ -1,15 +1,16 @@
 import { useContext } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
+import { useSelector, useDispatch} from 'react-redux';
 
 
 import Layout from './components/Layout/Layout';
 import AuthPage from './pages/AuthPage';
 import HomePage from './pages/HomePage';
-import AuthContext from './store/auth-context';
-// import {TokenStore} from '../src/mobx/TokenStore'
+
+
 
 function App() {
-  const autCtx = useContext(AuthContext);
+  const logged = useSelector(state => state.auth.isLoggedIn);
 
 
   return (
@@ -17,11 +18,11 @@ function App() {
       <Switch>
             
               <Route path='/' exact>
-              {autCtx.isLoggeiIn && <HomePage />}
-              {!autCtx.isLoggeiIn && <Redirect to='/auth' />}
+              {logged && <HomePage />}
+              {!logged && <Redirect to='/auth' />}
             </Route>
          
-        {!autCtx.isLoggeiIn && (
+        {!logged && (
             <Route path='/auth'>
             <AuthPage /> 
           </Route>
