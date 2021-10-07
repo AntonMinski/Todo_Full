@@ -17,7 +17,6 @@ import { RegisterDto } from './model/register.dto';
 import {JwtService} from "@nestjs/jwt";
 import {Request, Response} from 'express';
 
-import { AuthGuard } from './guards/auth.guard';
 
 
 // hides password from response:

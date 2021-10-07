@@ -26,7 +26,7 @@ const StartingPageContent = () => {
   
   
   // const token = storeToken;
-  const stateToken = useSelector(state => state.auth.token);
+  // const stateToken = useSelector(state => state.auth.token);
   const storeTasks = useSelector(state => state.task.tasks);
   const dispatch = useDispatch();
  
@@ -36,7 +36,7 @@ const StartingPageContent = () => {
   }, []);
 
   const getTasks = useCallback(() => {
-    console.log('stateToken', stateToken)
+    // console.log('stateToken', stateToken)
     GetTasks()
     .then(response => { 
       // setTasks(response.data);
@@ -89,7 +89,7 @@ const handleDeleteTask = useCallback((id) => {
 
   return (
     <div className='App'>
-      {storeTasks.length}
+      {/* {storeTasks.length} */}
         <FilterTask tasks={tasks} searchResults={searchResults} setSearchResults={setSearchResults} />
       <AddTask saveTodo={handleSaveTodo} />
       {filtered_tasks.map((task) => (

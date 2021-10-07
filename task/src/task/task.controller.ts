@@ -1,13 +1,10 @@
-import {Body, Controller, Delete, Get, HttpCode, Param, Patch, Post, Put, UseGuards} from '@nestjs/common';
+import {Body, Controller, Delete, Get, HttpCode, Param, Patch, Post, Put, Query, UseGuards} from '@nestjs/common';
 import { TaskService } from './task.service';
 import { TaskCreateDto } from './model/create-task.entity';
 import { GetUser } from 'src/auth/guards/get-user.decorator';
 import { User } from 'src/user/model/user.entity';
-import { AuthGuard } from 'src/auth/guards/auth.guard';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
-import { Task } from './model/entity';
 import { TaskUpdateDto } from './model/update-task.entity';
-import { TaskStatusDto } from './model/change-status.entity';
 
 
 @Controller('tasks')
@@ -26,9 +23,10 @@ export class TodoController {
     @Get('/byUser')
     @HttpCode(200)
     async allByUser(
-        @GetUser() user: User
+        @GetUser() user: User,
+        @Query('title') title: String
     ) {
-        return this.service.findByUser(user);
+        return this.service.findByUser(user, title);
     }
 
     @Post()

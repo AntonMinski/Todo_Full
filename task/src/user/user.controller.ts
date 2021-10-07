@@ -5,10 +5,8 @@ import { Param, Body, ClassSerializerInterceptor, Controller, Get, Post,
  import * as bcrypt from 'bcryptjs';
  import {UserCreateDto} from "./model/dto/create-user.dto";
  import {UserUpdateDto} from "./model/dto/user-update.dto";
- import {AuthGuard} from '../auth/guards/auth.guard';
  import {User} from "./model/user.entity";
  import {AuthService} from "../auth/auth.service";
- import {Request} from 'express';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { GetUser } from 'src/auth/guards/get-user.decorator';
  JwtAuthGuard

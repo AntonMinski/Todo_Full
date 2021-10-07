@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Repository, getManager} from "typeorm";
+import { Repository, getManager, Like, ILike} from "typeorm";
 import {InjectRepository} from "@nestjs/typeorm";
 import { Task } from './model/entity';
 import { User } from 'src/user/model/user.entity';
@@ -18,14 +18,18 @@ export class TaskService {
         return this.repository.find();
     }
 
-    async findByUser(user: User): Promise<Task[]> {       
-        return this.repository.find({ where: { user: user } });
+    async findByUser(user: User, title: String): Promise<Task[]> {       
+        return this.repository.find({ where: { 
+            user: user,
+            task: ILike(`%${title}%`)
+         } });
     }
 
     async create(body, user): Promise<any> {
 
         body.isActive = true;
-        body.user = user.id;
+        // typeOrm: should get whole User object on ManyToOne relations
+        body.user = user;
 
         return this.repository.save(body);
     }
@@ -34,7 +38,7 @@ export class TaskService {
         const task =  await this.repository.findOne({where: {id: id, user: user }});
 
         if (!task) {
-            throw new NotFoundException('Task with such id not found');
+            throw new NotFoundException(`Task with id '${id}' not found`);
         }
 
         return task;

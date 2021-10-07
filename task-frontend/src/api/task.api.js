@@ -1,4 +1,3 @@
-import axios from 'axios'
 import api from './axios.api';
 
 const baseUrl = `${process.env.REACT_APP_BASE_URL}/tasks`
@@ -8,13 +7,7 @@ const baseUrl = `${process.env.REACT_APP_BASE_URL}/tasks`
 export const GetTasks = async () => {
   try {
     const todos = await api.get( baseUrl
-    //   , {
-    //   headers: {
-    //     'content-type': "application/json",
-    //     'Authorization': `Bearer ${token}`
-    // }
-    // }
-    );
+     );
     return todos
   } catch (error) {
     console.log(error);
@@ -27,10 +20,6 @@ export const addTask = async (formData) => {
       method: "POST",
       url: baseUrl,
       data: { task: formData.task },
-      // headers: {
-      //           'content-type': "application/json",
-      //           'Authorization': `Bearer ${token}`
-      //         },
     }    
     const saveTodo = await api(config);
     return saveTodo;
