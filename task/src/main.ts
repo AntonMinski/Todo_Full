@@ -11,13 +11,13 @@ async function bootstrap() {
   app.useGlobalPipes(
     new ValidationPipe({
       
-      // защита от лишних данных:
+      // защита от лишних данных, не указанных в DTO при создании/редактировании:
       whitelist: true,
-      // выбивать оишбку на них:
+      // выбивать оишбку на них (иначе тихая чистка):
       forbidNonWhitelisted: true,
-      // преобразовние requset.body в приемлимый вид:
+      // преобразовние запроса для соответсвтия полям: ?
       transform: true,
-      // не указывать жестко Types в декораторах:
+      // преобразование автоматически:
       transformOptions: {
         enableImplicitConversion: true,
       }

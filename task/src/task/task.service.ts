@@ -29,7 +29,7 @@ export class TaskService {
 
         body.isActive = true;
         // typeOrm: should get whole User object on ManyToOne relations
-        body.user = user;
+        body.user = user.id;
 
         return this.repository.save(body);
     }

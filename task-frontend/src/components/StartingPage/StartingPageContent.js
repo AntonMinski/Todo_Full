@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useContext, useCallback} from "react";
+import React, {useEffect, useState, useCallback} from "react";
 import { useSelector, useDispatch} from 'react-redux';
 
 import AuthContext from '../../store/auth-context'; 
@@ -14,12 +14,12 @@ import { taskActions } from '../../store/task-slice';
 
 
 
-import classes from './StartingPageContent'
+// import classes from './StartingPageContent'
 
 
 const StartingPageContent = () => {
-  const authCtx = useContext(AuthContext);
-  const token = authCtx.token;
+  // const authCtx = useContext(AuthContext);
+  // const token = authCtx.token;
   
   const [tasks, setTasks] = useState([]);
   const [searchResults, setSearchResults] = React.useState([]);  // for filter, sending it in props later
