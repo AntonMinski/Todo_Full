@@ -1,9 +1,8 @@
-import { useState, useRef, useContext } from 'react';
+import { useState, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
 import classes from './AuthForm.module.css';
-import AuthContext from '../../store/auth-context';
 
 import { useDispatch } from 'react-redux';
 import { authActions } from '../../store/auth-slice';

@@ -1,6 +1,5 @@
-import { useContext } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import { useSelector, useDispatch} from 'react-redux';
+import { useSelector} from 'react-redux';
 
 
 import Layout from './components/Layout/Layout';

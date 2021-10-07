@@ -8,8 +8,7 @@ import AddTask from '../Task/AddTask'
 import FilterTask from "../Task/FilterTask";
 
 // import { authActions } from '../../store/auth-slice';
-import { taskActions } from '../../store/task-slice';
-
+import { getTaskAction } from '../../store/task-slice';
 
 
 
@@ -32,12 +31,7 @@ const StartingPageContent = () => {
   }, [searchTerm]);
 
   const getTasks = useCallback(() => {
-    GetTasks(searchTerm)
-    .then(response => { 
-      // setTasks(response.data);
-      dispatch(taskActions.setTasks(response.data));
-    })
-    .catch(err => console.log(err));
+    dispatch(getTaskAction(searchTerm))
   }, [searchTerm] );
 
  
