@@ -7,9 +7,11 @@ import { authActions } from '../../store/auth-slice';
 
 
 const MainNavigation = () => {
+  
   // const authCtx = useContext(AuthContext);
 
   const storeIsLoggedIn = useSelector(state => state.auth.isLoggedIn);
+  const storeError = useSelector(state => state.error.notification);
   const dispatch = useDispatch();
 
   const logoutHandler = () => {
@@ -20,6 +22,7 @@ const MainNavigation = () => {
 
   
   return (
+    <div>
     <header className={classes.header}>
 
             <Link to='/'>
@@ -40,6 +43,10 @@ const MainNavigation = () => {
         </ul>
       </div>
     </header>
+    { storeError && (
+      storeError.message
+    )}
+    </div>
   );
 };
 

@@ -1,5 +1,7 @@
 import api from './axios.api';
 
+
+
 const baseUrl = `${process.env.REACT_APP_BASE_URL}/tasks`
 
 
@@ -7,11 +9,11 @@ const baseUrl = `${process.env.REACT_APP_BASE_URL}/tasks`
 export const GetTasks = async (entered_title) => {
   try {
     // console.log(searchResults)
-    const todos = await api.get( `${baseUrl}?title=${entered_title}`
-     );
+    const todos = await api.get( `${baseUrl}?title=${entered_title}` );
     return todos.data
   } catch (error) {
-    console.log(error);
+    return error.response.data
+    
   }
 }
 
@@ -25,7 +27,8 @@ export const addTask = async (formData) => {
     const saveTodo = await api(config);
     return saveTodo.data
   } catch (error) {
-    throw new Error(error);
+    return error.response.data
+    // throw new Error(error);
   }
 }
 
@@ -39,7 +42,8 @@ export const completeTask = async (id) => {
     const updatedTask = await api(config)
     return updatedTask.data
   } catch (error) {
-    throw new Error(error)
+    return error.response.data
+    // throw new Error(error)
   }
 }
 
@@ -52,6 +56,7 @@ export const deleteTask = async (id) => {
     const deletedTask = await api(config);
     return deletedTask.data
   } catch (error) {
-    throw new Error(error)
+    return error.response.data
+    // throw new Error(error)
   }
 }

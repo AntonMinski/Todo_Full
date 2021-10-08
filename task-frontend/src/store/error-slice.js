@@ -1,22 +1,26 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+// import { api } from '../api/axios.api';
+
+
+
 
 const errorSlice = createSlice({
     name: 'error',
     initialState: {
-        notificaciton: null
+        notification: null
     },
     reducers: {
-        setError: (state, action) => {
-            state.notificaciton = {
-                title: action.payload.title,
-                status: action.payload.status,
-                message: action.payload.message,
+        setError: (state, {payload}) => {
+            state.notification = {
+                title: payload.error,
+                status: payload.statusCode,
+                message: payload.message
             };
             // console.log(notification)
         }, 
         clearError: (state) => {
-            state.notificaciton = null;
+            state.notification = null;
             // console.log(state.token, state.isLoggedIn)
         }
     }
