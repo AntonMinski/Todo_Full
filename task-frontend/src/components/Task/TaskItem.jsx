@@ -1,8 +1,23 @@
+import React, {useCallback} from "react";
+import {  useDispatch} from 'react-redux';
 
-import React from 'react'
+import { completeTaskAction, deleteTaskAction } from '../../store/tasks-slice';
 
 
-const TaskItem = ({ todo, updateTodo, deleteTodo }) => {
+const TaskItem = ({ todo }) => {
+  const dispatch = useDispatch();
+
+  const updateTask = useCallback((id) => {
+    dispatch(completeTaskAction({id}))
+  
+  }, [dispatch]);
+  
+  const deleteTask = useCallback((id) => {
+    dispatch(deleteTaskAction({id}))
+    }, [dispatch]);
+
+
+
   const checkTodo = todo.isActive ? `` : `line-through`
   return (
     <div className='Card'>
@@ -12,13 +27,13 @@ const TaskItem = ({ todo, updateTodo, deleteTodo }) => {
       </div>
       <div className='Card--button'>
         <button
-          onClick={() => updateTodo(todo.id)}
+          onClick={() => updateTask(todo.id)}
           className={(!todo.isActive) ? `hide-button` : 'Card--button__done'}
         >
           Complete
         </button>
         <button
-          onClick={() => deleteTodo(todo.id)}
+          onClick={() => deleteTask(todo.id)}
           className='Card--button__delete'
         >
           Delete

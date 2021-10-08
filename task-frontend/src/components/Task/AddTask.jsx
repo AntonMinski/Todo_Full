@@ -1,7 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
+import {  useDispatch} from 'react-redux';
+import {  addTaskAction } from '../../store/tasks-slice';
 
-const AddTask = ({ saveTodo }) => {
+
+const AddTask = () => {
   const [formData, setFormData] = useState()
+  const dispatch = useDispatch();
+
+
+  const saveTodo = useCallback((e, formData) => {
+    dispatch(addTaskAction({ e, formData }))
+  }, [dispatch]);
 
   const handleForm = (e) => {
     setFormData({

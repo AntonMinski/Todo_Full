@@ -4,22 +4,25 @@ import { GetTasks, addTask, completeTask, deleteTask } from '../api/task.api';
 
 export const addTaskAction = createAsyncThunk('tasks/addTaskAction', async ({e, formData}) => {
     e.preventDefault()
-    console.log('formData', formData)
     const response = await addTask(formData)
-//     .then(({ status, data }) => {
-//      if (status !== 201) {
-//        throw new Error('Error! Task not saved')
-//      }
-//      getTasks();
-//    })
-//    .catch((err) => console.log(err))
-    return response.data.data
- })
+    return response.data
+ });
  
 
 export const getTasksAction = createAsyncThunk('tasks/getTaskAction', async (searchTerm) => {
     return GetTasks(searchTerm).then(response => response.data)
-})
+});
+
+export  const completeTaskAction = createAsyncThunk('tasks/completeTaskAction', async ({id}) => {
+    const response = await completeTask(id)
+    return response.data
+  });
+
+  export  const deleteTaskAction = createAsyncThunk('tasks/deleteTaskAction', async ({id}) => {
+    const response = await deleteTask(id)
+    return {response, id}
+  });
+
 
 
 
@@ -39,6 +42,26 @@ const tasksSlice = createSlice({
         [getTasksAction.fulfilled]: (state, action) => {
             state.tasks = action.payload;
         },
+
+        [completeTaskAction.fulfilled]: (state, action) => {
+            const index = state.tasks.findIndex(task => task.id === action.payload.id);
+            state.tasks[index] = {
+            ...state.tasks[index],
+            ...action.payload,
+            };
+        },
+        [completeTaskAction.rejected]: (state, action) => {
+            console.log(state, action.payload)
+        },
+
+        [deleteTaskAction.fulfilled]: (state, action) => {
+            const index = state.tasks.findIndex(({ id }) => id === action.payload.id);
+            state.tasks.splice(index, 1);
+        },
+
+        [deleteTaskAction.rejected]: (state, action) => {
+            console.log(state, action.payload)
+        },
         
     },
 
@@ -48,24 +71,6 @@ const tasksSlice = createSlice({
         }
     }
 });
-
-// export const GetTaskAction = (searchTerm) => {
-
-//     return async (dispatch) => {
-
-    
-//     GetTasks(searchTerm)
-//     .then(response => { 
-//         // setTasks(response.data);
-//         console.log('response', response)
-//         dispatch(taskSlice.setTasks(response.data));
-//       })
-//       .catch(err => console.log(err));
-//     // return async (dispatch) => {  
-//     }
-
-// }
-
 
 export const tasksActions = tasksSlice.actions;
 

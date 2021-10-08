@@ -23,7 +23,7 @@ export const addTask = async (formData) => {
       data: { task: formData.task },
     }    
     const saveTodo = await api(config);
-    return saveTodo
+    return saveTodo.data
   } catch (error) {
     throw new Error(error);
   }
@@ -37,20 +37,20 @@ export const completeTask = async (id) => {
       data: { 'isActive': false },
     }    
     const updatedTask = await api(config)
-    return updatedTask
+    return updatedTask.data
   } catch (error) {
     throw new Error(error)
   }
 }
 
-export const deleteTask = async (id, token) => {
+export const deleteTask = async (id) => {
   try {
     const config = {
       method: "DELETE",
       url: `${baseUrl}/${id}`,
     }
     const deletedTask = await api(config);
-    return deletedTask
+    return deletedTask.data
   } catch (error) {
     throw new Error(error)
   }
