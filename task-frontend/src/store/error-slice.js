@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+
 // import { api } from '../api/axios.api';
 
 
@@ -17,6 +18,7 @@ const errorSlice = createSlice({
                 status: payload.statusCode,
                 message: payload.message
             };
+            // useToasts(payload.error, { appearance: 'error' })
             // console.log(notification)
         }, 
         clearError: (state) => {

@@ -14,7 +14,7 @@ function App() {
 
   return (
     <Layout>
-      <Switch>
+           <Switch>
             
               <Route path='/' exact>
               {logged && <HomePage />}
@@ -30,6 +30,7 @@ function App() {
           <Redirect to='/' /> 
         </Route>
       </Switch> 
+
     </Layout>
   );
 }

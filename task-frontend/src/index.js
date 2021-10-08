@@ -1,5 +1,8 @@
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
+import { ToastProvider } from 'react-toast-notifications';
+
+
 
 import './index.css';
 import App from './App';
@@ -12,7 +15,9 @@ ReactDOM.render(
   <Provider store={store}>
   <AuthContextProvider>
     <BrowserRouter>
+    <ToastProvider autoDismiss autoDismissTimeout={3500} placement='top-right'>
       <App />
+      </ToastProvider>
     </BrowserRouter>
   </AuthContextProvider>
   </Provider>,

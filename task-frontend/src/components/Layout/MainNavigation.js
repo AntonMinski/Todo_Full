@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch} from 'react-redux';
+import{useEffect} from "react";
+import { useToasts } from 'react-toast-notifications';
 
 
 import classes from './MainNavigation.module.css';
@@ -7,15 +9,23 @@ import { authActions } from '../../store/auth-slice';
 
 
 const MainNavigation = () => {
-  
-  // const authCtx = useContext(AuthContext);
+  const { addToast, removeAllToasts } = useToasts();
+
 
   const storeIsLoggedIn = useSelector(state => state.auth.isLoggedIn);
   const storeError = useSelector(state => state.error.notification);
+
+  useEffect(() => {
+      if (storeError) {
+        removeAllToasts();
+        addToast(storeError.message, {appearance: 'error'  
+         });
+      }
+  }, [storeError, addToast, removeAllToasts])
+
   const dispatch = useDispatch();
 
   const logoutHandler = () => {
-    // authCtx.logout();
     dispatch(authActions.setLogout())
     console.log('logged_out');
   }
@@ -29,7 +39,6 @@ const MainNavigation = () => {
               <div className={classes.logo}>Todo app</div>
             </Link>
           
-      
       <div>
         <ul>
             <li>
@@ -43,9 +52,8 @@ const MainNavigation = () => {
         </ul>
       </div>
     </header>
-    { storeError && (
-      storeError.message
-    )}
+    {/* <ToastContainer /> */}
+ 
     </div>
   );
 };
