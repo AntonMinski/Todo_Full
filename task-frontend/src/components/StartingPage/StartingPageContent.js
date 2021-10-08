@@ -8,7 +8,7 @@ import AddTask from '../Task/AddTask'
 import FilterTask from "../Task/FilterTask";
 
 // import { authActions } from '../../store/auth-slice';
-import { getTaskAction } from '../../store/task-slice';
+import { getTasksAction, addTaskAction } from '../../store/tasks-slice';
 
 
 
@@ -22,7 +22,7 @@ const StartingPageContent = () => {
   const [searchResults, setSearchResults] = React.useState([]);  // for filter, sending it in props later
   
   
-  const storeTasks = useSelector(state => state.task.tasks);
+  const storeTasks = useSelector(state => state.tasks.tasks);
   const dispatch = useDispatch();
  
 
@@ -31,20 +31,21 @@ const StartingPageContent = () => {
   }, [searchTerm]);
 
   const getTasks = useCallback(() => {
-    dispatch(getTaskAction(searchTerm))
+    dispatch(getTasksAction(searchTerm))
   }, [searchTerm] );
 
  
   const handleSaveTodo = useCallback((e, formData) => {
-    e.preventDefault()
-    addTask(formData)
-    .then(({ status, data }) => {
-     if (status !== 201) {
-       throw new Error('Error! Task not saved')
-     }
-     getTasks();
-   })
-   .catch((err) => console.log(err))
+    dispatch(addTaskAction({e, formData}))
+  //   e.preventDefault()
+  //   addTask(formData)
+  //   .then(({ status, data }) => {
+  //    if (status !== 201) {
+  //      throw new Error('Error! Task not saved')
+  //    }
+  //    getTasks();
+  //  })
+  //  .catch((err) => console.log(err))
  }, []);
 
  const hadleComplteteTask = useCallback((id) => {
