@@ -9,6 +9,7 @@ const toast = {
             title: '',
             message: message,
             position: 'topRight',
+            timeout: 2500,
             // target: 'header'
         });
     },
@@ -18,7 +19,8 @@ const toast = {
         return iZtoast.success({
             title: '',
             message: message,
-            position: 'topRight'
+            position: 'topRight',
+            timeout: 2000,
         }); 
     }
 };

@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Repository, getManager, Like, ILike} from "typeorm";
+import { Repository, getManager, Like, ILike, Connection} from "typeorm";
 import {InjectRepository} from "@nestjs/typeorm";
 import { Task } from './model/entity';
 import { User } from 'src/user/model/user.entity';
@@ -20,34 +20,29 @@ export class TaskService {
     // }
 
     async findByUser(user: User, searchQuery: GetTasksFilterDto): Promise<Task[]> {  
-        const {title, completed} = searchQuery
+        const {title, status} = searchQuery
+
+        let isActive
+
+        // convert string to boolean:
+        if (status)  { isActive = true ? status ==='active' : false }
+  
+        
+       const result = await this.repository.createQueryBuilder()
+       .where('"userId" = :user', {user: user.id})
+       .andWhere('task ilike :name', {name: `%${title}%`})
+       .andWhere((status !== undefined) ? `"isActive" = :isActive` : '1=1', { isActive })
+       .getMany()
+
+        return result
         
         return this.repository.find({ where: { 
             user: user.id,
             task: ILike(`%${title}%`)
-            // isActive: completed, 
-         } });
+        } });
     }
 
-    // async findByUser(user: User, searchQuery: GetTasksFilterDto): Promise<Task[]> {  
-    //     const {title, completed} = searchQuery
-
-    //     const result = await this.repository.createQueryBuilder()
-    //     .where('"userId" = :user', {user: user.id})
-    //     .andWhere('task = :title', {title})
-    //     // .andWhere('"userId" = :user', {user: user.id})
-    //     .getMany()
-
         
-    //     return result
-        
-    //     // this.repository.find({ where: { 
-    //     //     user: user.id,
-    //     //     task: ILike(`%${title}%`)
-    //     //     // isActive: completed, 
-    //     //  } });
-    // }
-
     async create(body, user): Promise<any> {
 
         body.isActive = true;
