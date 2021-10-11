@@ -21,12 +21,11 @@ export const addTaskAction = createAsyncThunk('tasks/addTaskAction', async ({e, 
 export const getTasksAction = createAsyncThunk('tasks/getTaskAction', async (searchTerm, {rejectWithValue, dispatch}) => {
 
     const response = await GetTasks(searchTerm)
-    // if (!response.message || response.message !== 'Sucess') {
-    //     dispatch(errorActions.setError(response));
-    //     return rejectWithValue(response);
-    // } else { 
-    //     return response.data
-    // }
+
+    if (!response.message) {
+        dispatch(errorActions.setError(response));
+        return rejectWithValue(response);
+    } 
 
     return response.data
 
@@ -36,7 +35,7 @@ export  const completeTaskAction = createAsyncThunk('tasks/completeTaskAction', 
     const response = await completeTask(id)
 
     if (!response.message || response.message !== 'Status updated') {
-        dispatch(errorActions.setError(response));
+        // dispatch(errorActions.setError(response));
         return rejectWithValue(response.message);
 
     } else {
@@ -65,6 +64,18 @@ const tasksSlice = createSlice({
         error: '',
     },
     extraReducers: {
+        [getTasksAction.fulfilled]: (state, action) => {
+            state.tasks = action.payload;
+        },
+
+        [getTasksAction.rejected]: (state, {payload, meta, error}) => {
+            // console.log(payload, meta, error)
+            // errorActions.setError({payload})
+            // state.error = payload.message
+            // errorActions.setError(action.payload.error)
+            // console.log(state, action.payload)
+        },
+
         [addTaskAction.fulfilled]: (state, action) => {
             state.tasks.push(action.payload)
         },
@@ -73,17 +84,7 @@ const tasksSlice = createSlice({
             state.error = payload
         },
 
-        [getTasksAction.fulfilled]: (state, action) => {
-            state.tasks = action.payload;
-        },
-
-        // [getTasksAction.rejected]: (state, {payload, meta, error}) => {
-        //     // console.log(payload, meta, error)
-        //     errorActions.setError({payload})
-        //     state.error = payload.message
-        //     // errorActions.setError(action.payload.error)
-        //     // console.log(state, action.payload)
-        // },
+        
 
 
         [completeTaskAction.fulfilled]: (state, action) => {
@@ -108,11 +109,11 @@ const tasksSlice = createSlice({
         
     },
 
-    reducers: {
-        setTasks: (state, action) => {
-            state.tasks = action.payload;
-        }
-    }
+    // reducers: {
+    //     setTasks: (state, action) => {
+    //         state.tasks = action.payload;
+    //     }
+    // }
 });
 
 export const tasksActions = tasksSlice.actions;

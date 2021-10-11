@@ -1,10 +1,11 @@
-import React, {useEffect, useCallback} from "react";
-import { useSelector, useDispatch} from 'react-redux';
+// import React, {useEffect, useCallback} from "react";
+import { useSelector } from 'react-redux';
+// import {  useDispatch} from 'react-redux';
 
 import TaskItem from '../Task/TaskItem'
 import AddTask from '../Task/AddTask'
 import FilterTask from "../Task/FilterTask";
-import { getTasksAction } from '../../store/tasks-slice';
+// import { getTasksAction } from '../../store/tasks-slice';
 
 
 
@@ -13,16 +14,16 @@ const StartingPageContent = () => {
   // const [tasks, setTasks] = useState([]);
       
   const storeTasks = useSelector(state => state.tasks.tasks);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  const getTasks = useCallback(() => {
-    dispatch(getTasksAction(''))
-  }, [dispatch] );
+  // const getTasks = useCallback(() => {
+  //   dispatch(getTasksAction(''))
+  // }, [dispatch] );
 
  
-  useEffect(() => {
-    getTasks()
-  }, [getTasks]);
+  // useEffect(() => {
+  //   getTasks()
+  // }, [getTasks]);
 
    
   return (

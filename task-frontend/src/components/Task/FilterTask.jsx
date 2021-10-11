@@ -20,8 +20,6 @@ const FilterTask = () => {
   }, [searchTerm, getTasks]);
 
   
-
-
   const handleChange = e => {
     setSearchTerm(e.target.value);
   };

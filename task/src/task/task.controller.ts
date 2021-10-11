@@ -29,7 +29,7 @@ export class TodoController {
     ) {
         const tasks = await this.service.findByUser(user, searchQuery);
 
-        return { message: 'Sucess', data: tasks, count: tasks.length }
+        return { message: 'Success', data: tasks, count: tasks.length }
     }
 
     @Post()
@@ -48,7 +48,7 @@ export class TodoController {
         @Param('id') id: number,
         @GetUser() user: User) {
         const task = await this.service.findById(id, user);
-        return { message: 'Sucess', data: task }
+        return { message: 'Success', data: task }
     }
 
     @Put(':id')

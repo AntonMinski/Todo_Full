@@ -31,7 +31,34 @@ api.interceptors.request.use(
     error => Promise.reject(error)
   )
 
-  // Response interceptor for API calls
+ // Response interceptor for API calls
+api.interceptors.response.use((response) => {
+  if (response.data.message === 'Success') return response
+  //  {response.data.message = 'Tasks Loaded'}
+  toast.success(response.data.message)
+
+  return response
+
+}, async function (error) {
+
+  toast.error(error.response.data.message)
+
+  // return Promise.reject(error);
+});
+
+// api.interceptors.response.use(
+//   response => response,
+//   errorResponseHandler
+// );
+  
+  export default api
+
+
+
+
+
+
+   // Response interceptor for API calls
 // api.interceptors.response.use((response) => {
 //   return response
 // }, async function (error) {
@@ -42,10 +69,3 @@ api.interceptors.request.use(
 //   }
 //   return Promise.reject(error);
 // });
-
-api.interceptors.response.use(
-  response => response,
-  errorResponseHandler
-);
-  
-  export default api

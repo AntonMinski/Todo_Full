@@ -9,11 +9,11 @@ const baseUrl = `${process.env.REACT_APP_BASE_URL}/tasks`
 export const GetTasks = async (entered_title) => {
   try {
     // console.log(searchResults)
-    const todos = await api.get( `${baseUrl}?ti34tle=${entered_title}` );
+    const todos = await api.get( `${baseUrl}?title=${entered_title}` );
     return todos.data
   } catch (error) {
     return error.response.data
-    
+    // throw new Error(erro)
   }
 }
 
