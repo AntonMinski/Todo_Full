@@ -1,4 +1,18 @@
 import axios from 'axios'
+import toast from './toast'
+
+
+export const errorResponseHandler = (error) => {
+  // check for errorHandle config
+  if( error.config.hasOwnProperty('errorHandle') && error.config.errorHandle === false ) {
+      return Promise.reject(error);
+  }
+
+  // if has response show the error
+  if (error.response) {
+      toast.error(error.response.data.message);
+  }
+}
 
 
 const api = axios.create({
@@ -18,15 +32,20 @@ api.interceptors.request.use(
   )
 
   // Response interceptor for API calls
-api.interceptors.response.use((response) => {
-  return response
-}, async function (error) {
-  const originalRequest = error.config;
-  if (error.response.status === 403 && !originalRequest._retry) {
-    originalRequest._retry = true;
-    return setTimeout( api(originalRequest), 2000)
-  }
-  return Promise.reject(error);
-});
+// api.interceptors.response.use((response) => {
+//   return response
+// }, async function (error) {
+//   const originalRequest = error.config;
+//   if (error.response.status === 403 && !originalRequest._retry) {
+//     originalRequest._retry = true;
+//     return setTimeout( api(originalRequest), 2000)
+//   }
+//   return Promise.reject(error);
+// });
+
+api.interceptors.response.use(
+  response => response,
+  errorResponseHandler
+);
   
   export default api

@@ -21,12 +21,14 @@ export const addTaskAction = createAsyncThunk('tasks/addTaskAction', async ({e, 
 export const getTasksAction = createAsyncThunk('tasks/getTaskAction', async (searchTerm, {rejectWithValue, dispatch}) => {
 
     const response = await GetTasks(searchTerm)
-    if (!response.message || response.message !== 'Sucess') {
-        dispatch(errorActions.setError(response));
-        return rejectWithValue(response);
-    } else { 
-        return response.data
-    }
+    // if (!response.message || response.message !== 'Sucess') {
+    //     dispatch(errorActions.setError(response));
+    //     return rejectWithValue(response);
+    // } else { 
+    //     return response.data
+    // }
+
+    return response.data
 
 });
 
@@ -75,13 +77,13 @@ const tasksSlice = createSlice({
             state.tasks = action.payload;
         },
 
-        [getTasksAction.rejected]: (state, {payload, meta, error}) => {
-            // console.log(payload, meta, error)
-            errorActions.setError({payload})
-            state.error = payload.message
-            // errorActions.setError(action.payload.error)
-            // console.log(state, action.payload)
-        },
+        // [getTasksAction.rejected]: (state, {payload, meta, error}) => {
+        //     // console.log(payload, meta, error)
+        //     errorActions.setError({payload})
+        //     state.error = payload.message
+        //     // errorActions.setError(action.payload.error)
+        //     // console.log(state, action.payload)
+        // },
 
 
         [completeTaskAction.fulfilled]: (state, action) => {
