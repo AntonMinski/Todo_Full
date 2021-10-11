@@ -13,7 +13,7 @@ const StartingPageContent = () => {
 
   // const [tasks, setTasks] = useState([]);
       
-  const storeTasks = useSelector(state => state.tasks.tasks);
+  // const storeTasks = useSelector(state => state.tasks.tasks);
   // const dispatch = useDispatch();
 
   // const getTasks = useCallback(() => {
@@ -25,6 +25,7 @@ const StartingPageContent = () => {
   //   getTasks()
   // }, [getTasks]);
 
+  const storeTasks = useSelector(state => state.tasks.tasks);
    
   return (
     <div className='App'>

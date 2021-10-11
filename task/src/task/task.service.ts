@@ -19,12 +19,18 @@ export class TaskService {
     //     return this.repository.find();
     // }
 
-    async findByUser(user: User, searchQuery: GetTasksFilterDto): Promise<Task[]> {  
-        const {title, status} = searchQuery
+    async findByUser(user: User, searchQuery: GetTasksFilterDto): Promise<[Task[], number]> {  
+        let {title, status, page, limit} = searchQuery
+        
 
-        let isActive
-
+        // pagination
+        page = Number(page)
+        limit = Number(limit) 
+        const skippedItems = (page - 1) * limit 
+       
+        
         // convert string to boolean:
+        let isActive
         if (status)  { isActive = true ? status ==='active' : false }
   
         
@@ -32,14 +38,19 @@ export class TaskService {
        .where('"userId" = :user', {user: user.id})
        .andWhere('task ilike :name', {name: `%${title}%`})
        .andWhere((status !== undefined) ? `"isActive" = :isActive` : '1=1', { isActive })
-       .getMany()
+       .offset((skippedItems >0) ? skippedItems : 0)
+       .limit((limit) ? limit : 0)
+       .getManyAndCount()
+
+    //    const {data, count} = result
+        console.log(result)
 
         return result
         
-        return this.repository.find({ where: { 
-            user: user.id,
-            task: ILike(`%${title}%`)
-        } });
+        // return this.repository.find({ where: { 
+        //     user: user.id,
+        //     task: ILike(`%${title}%`)
+        // } });
     }
 
         

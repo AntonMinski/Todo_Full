@@ -6,30 +6,23 @@ import { User } from 'src/user/model/user.entity';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { TaskUpdateDto } from './model/dto/update-task.entity';
 import { GetTasksFilterDto } from './model/dto/filter-task.entity';
+import { PaginationDto } from './model/dto/pagination.dto';
 
 
 @Controller('tasks')
 @UseGuards(JwtAuthGuard)
 export class TodoController {
-    constructor(private service: TaskService) {
-    }
-
-    // This rote just for admin or testing only
-    // @Get()
-    // @HttpCode(200)
-    // async findAll() {
-    //     return this.service.findAll();
-    // }
+    constructor(private service: TaskService) {}
 
     @Get()
     @HttpCode(200)
     async findAll(
         @GetUser() user: User,
-        @Query() searchQuery: GetTasksFilterDto
-    ) {
+        @Query() searchQuery: GetTasksFilterDto,
+            ) {
         const tasks = await this.service.findByUser(user, searchQuery);
 
-        return { message: 'Success', data: tasks, count: tasks.length }
+        return { message: 'Success', data: tasks[0], total: tasks[1] }
     }
 
     @Post()

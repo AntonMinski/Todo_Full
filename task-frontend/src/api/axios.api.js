@@ -43,15 +43,17 @@ api.interceptors.response.use((response) => {
 
   toast.error(error.response.data.message)
 
-  // return Promise.reject(error);
 });
+
+
+
 
 // api.interceptors.response.use(
 //   response => response,
 //   errorResponseHandler
 // );
   
-  export default api
+export default api
 
 
 
