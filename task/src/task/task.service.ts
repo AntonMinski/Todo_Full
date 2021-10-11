@@ -37,7 +37,7 @@ export class TaskService {
        const result = await this.repository.createQueryBuilder()
        .where('"userId" = :user', {user: user.id})
        .andWhere('task ilike :name', {name: `%${title}%`})
-       .andWhere((status !== undefined) ? `"isActive" = :isActive` : '1=1', { isActive })
+       .andWhere((status !== '') ? `"isActive" = :isActive` : '1=1', { isActive })
        .offset((skippedItems >0) ? skippedItems : 0)
        .limit((limit) ? limit : 0)
        .getManyAndCount()

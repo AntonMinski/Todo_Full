@@ -1,38 +1,46 @@
-.Top_header {
-    flex: 3;
-    display: inline-block;
-    margin: 0 4rem;
-    width: 60%;
-    text-align: center;
-    white-space: nowrap; 
-}
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
+
+/* <link rel=”stylesheet” href=””> */
+
+
 
 .Task_search {
     display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    padding: 0.2rem;
-    /* background: #444; */
-    margin-bottom: 1rem;
+    align-items: center;  
     flex-wrap: nowrap;
+    background-color: #444;
+    /* padding-top: 5px; */
+    /* padding-bottom: 5px; */
+    border-bottom: 2px solid #333;
+    height: 70px;
+    
+    /* justify-content: center; */
 }
 
-.Task_search > div {
+
+.selectForm {
+    border-radius: 18px 0 0 18px;
+}
+
+
+
+
+/* .Task_search > div {
     display: flex;
     justify-content: center;
     align-items: center;
-}
+} */
 
 .Task_search input {
-    flex: 1;
+    /* flex: 1; */
     background: #f5f6f7;
-    padding: 0.5rem 0.2rem;
-    border: 1px solid #ff9900;
-    border-radius: 18px;
-    display: block;
-    margin: 0.3rem 1rem 0 0;
+    /* padding: 0.5rem 0.2rem; */
+    border: none;
+    border-radius: 0 18px 18px 0;
+    /* display: block; */
+    /* margin: 0.3rem 1rem 0 0; */
     width: 200px;
-    height: 30px;
+    /* height: 40px; */
 }
 
 

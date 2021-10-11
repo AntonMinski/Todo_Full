@@ -29,8 +29,10 @@ const StartingPageContent = () => {
    
   return (
     <div className='App'>
-        <FilterTask />
+      <h1>My Todos</h1>
+        
       <AddTask />
+      <FilterTask />
       {storeTasks.map((task) => (
         <TaskItem
           key={task.id}
