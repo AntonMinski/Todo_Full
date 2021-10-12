@@ -5,6 +5,8 @@ import { useSelector } from 'react-redux';
 import TaskItem from '../Task/TaskItem'
 import AddTask from '../Task/AddTask'
 import FilterTask from "../Task/FilterTask";
+
+import classes from './StartingPageContent.module.css'
 // import { getTasksAction } from '../../store/tasks-slice';
 
 
@@ -39,6 +41,7 @@ const StartingPageContent = () => {
           todo={task}
         />
       ))}
+     
     </div>
   )
 };
