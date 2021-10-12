@@ -1,7 +1,7 @@
 import React, { useCallback} from 'react'
 import { useSelector} from 'react-redux';
 
-import classes from './Pagination.module.css'
+import classes from './_Pagination.module.scss'
 
 
 
@@ -59,7 +59,7 @@ const PaginationTask = ({page, setPage, limit, middle, setMiddle}) => {
           {middle > 3 && (
             <button
               onClick={goToFirstPage}
-              className={`${classes.paginationItem} 'active' `}        >
+              className={`${classes.paginationItem} 'active'`}        >
               <span>1</span>
             </button>
           )}
@@ -80,7 +80,7 @@ const PaginationTask = ({page, setPage, limit, middle, setMiddle}) => {
             <button
               key={index}
               onClick={changePage}
-              className={`${classes.paginationItem} ${page === item ? 'active' : null}`}
+              className={`${(page === item) ? classes.paginationItemActive : classes.paginationItem}`}
             >
               <span>{item}</span>
             </button>

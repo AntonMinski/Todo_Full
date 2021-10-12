@@ -6,7 +6,7 @@ import TaskItem from '../Task/TaskItem'
 import AddTask from '../Task/AddTask'
 import FilterTask from "../Task/FilterTask";
 
-import classes from './StartingPageContent.module.css'
+// import classes from './_StartingPageContent.module.scss'
 // import { getTasksAction } from '../../store/tasks-slice';
 
 
@@ -30,18 +30,26 @@ const StartingPageContent = () => {
   const storeTasks = useSelector(state => state.tasks.tasks);
    
   return (
-    <div className='App'>
-      <h1>My Todos</h1>
-        
-      <AddTask />
-      <FilterTask />
-      {storeTasks.map((task) => (
-        <TaskItem
-          key={task.id}
-          todo={task}
-        />
-      ))}
-     
+    <div className='AppBlock'>
+
+      <div className='leftMenu'>
+      
+
+      </div>
+
+      <div className='App'>
+        <h1>My Todos</h1>
+          
+        <AddTask />
+        <FilterTask />
+        {storeTasks.map((task) => (
+          <TaskItem
+            key={task.id}
+            todo={task}
+          />
+        ))}
+      
+      </div>
     </div>
   )
 };

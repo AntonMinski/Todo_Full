@@ -1,0 +1,90 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
+
+@import 'styles/variables';
+
+/* <link rel=”stylesheet” href=””> */
+
+
+
+.Task_search {
+    display: flex;
+    align-items: center;  
+    flex-wrap: nowrap;
+    background-color: $base-light;
+    /* padding-top: 5px; */
+    /* padding-bottom: 5px; */
+    border-bottom: 2px solid $base-dark;
+    height: 70px;
+    padding-left: 13px;
+    width: 100%;
+    border-radius: $radius-middle;
+    /* justify-content: center; */
+}
+
+
+.selectForm {
+    border-radius: $radius-middle 0 0 $radius-middle;
+    height: $height-input;
+    background-color: $base-dark;
+    color: $base-text;
+    border: 1px solid $yellow-border;
+    border-right: none;
+    // width: 120px;
+}
+
+
+
+
+.Task_search > div {
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
+    border-radius: $radius-middle;
+}
+
+.TaskSearchInput {
+    /* flex: 1; */
+    background: $base-dark;
+    /* padding: 0.5rem 0.2rem; */
+    border: 1px solid $yellow-border;
+    border-left: none;
+    border-radius: $radius-middle;
+    /* display: block; */
+    /* margin: 0.3rem 1rem 0 0; */
+    width: 230px;
+    height: $height-input;
+    color: $base-text;
+}
+
+.Page_limit {
+  width: 50px;  
+  margin: 0 10px 0 20px;
+
+}
+
+
+/* .Task_search label {
+
+} */
+
+.Task_search button {
+    background: #ff9900;
+    color: #fff;
+    padding: 5rem 2rem;
+    border-radius: 20px;
+    cursor: pointer;
+    border: none;
+    margin-left: 5px;
+}
+
+.selectLimit {
+  margin: 0 12px 0 auto;
+  background-color: $base-dark;
+  border-radius: $radius-middle;
+  height: $height-input;
+  border: 1px solid $yellow-border;
+  color: $base-text;
+}
+
+
+

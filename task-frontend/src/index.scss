@@ -1,0 +1,248 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@700&family=Open+Sans:wght@400;700&display=swap');
+
+@import 'components/StartingPage/StartingPageContent.module';
+@import 'components/Layout/MainNavigation.module';
+@import 'styles/variables';
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Lato', sans-serif;
+}
+
+
+
+.mainBlock{
+  background-color: $base-dark;
+  margin: 10px auto;
+  max-width: 70vw;
+  border-radius: 10px;
+  
+}
+.AppBlock {
+  display: flex;
+  flex-direction: row;
+}
+
+.leftMenu  {
+  flex-basis: 25%;
+  /* max-width: ; */
+ background-color: $base-light;
+}
+
+.App {
+  max-width: 728px;
+  margin: 4rem auto;
+  flex-basis: 50%;
+  /* background-color: rgb(25, 26, 36); */
+  /* display: flex; */
+  /* flex-direction: row; */
+}
+
+.App > h1 {
+  text-align: center;
+  margin: 1rem 0;
+}
+
+body {
+  /* width: 100%; */
+  /* max-width: 68rem; */
+  margin: 25px 150px 0;
+  font: 1.6rem/1.25 Arial, sans-serif;
+  background-color: #f5f5f5;
+  color: #4d4d4d;
+}
+@media screen and (min-width: 620px) {
+  body {
+    font-size: 1.9rem;
+    line-height: 1.31579;
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; 
+}
+body {
+  /* width: 100vw; */
+  font-family: 'Nunito', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #fff;
+  background: linear-gradient(45deg, #e66465, #9198e5);
+}
+
+
+
+/* RESETS */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+*:focus {
+  outline: 3px dashed #228bec;
+  outline-offset: 0;
+}
+html {
+  font: 62.5% / 1.15 sans-serif;
+}
+h1,
+h2 {
+  margin-bottom: 0;
+}
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+
+button {
+  border: none;
+  margin: 0;
+  padding: 0;
+  width: auto;
+  overflow: visible;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  line-height: normal;
+  -webkit-font-smoothing: inherit;
+  -moz-osx-font-smoothing: inherit;
+  -webkit-appearance: none;
+}
+
+button::-moz-focus-inner {
+  border: 0;
+}
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: inherit;
+  font-size: 100%;
+  line-height: 1.15;
+  margin: 0;
+}
+button,
+input {
+  overflow: visible;
+}
+input[type="text"] {
+  border-radius: 0;
+}
+
+
+
+
+/* New  */
+
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+
+
+
+
+
+
+
+
+.Card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* background: #444; */
+    background: $base-light;
+    padding: 0.5rem 1rem;
+    border-bottom: 4px solid $base-dark;
+    height: 75px;
+    margin: 5px 0;
+}
+
+.Card--text h1 {
+    color: $base-text;
+}
+
+.Card--button button {
+    background: $base-dark;
+    padding: 0.4rem 1rem;
+    border-radius: $radius-middle;
+    cursor: pointer;
+    height: 40px;
+}
+
+.Card--button__delete {
+    border: 1px solid $yellow-border;
+    color: $base-text;
+}
+
+.Card--button__done {
+    border: 1px solid #05e4e4;
+    color: $base-text;
+    margin-right: 1rem;
+}
+
+.Form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: $base-light;
+    margin-bottom: 1rem;
+} 
+
+.Form > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Form input {
+    background: $base-dark;
+    padding: 0.5rem 1rem;
+    border: 1px solid #ff9900;
+    border-radius: $radius-middle;
+    display: block;
+    margin: 0.3rem 1rem 0 0;
+    width: 350px;
+    color: $base-text;
+    height: $height-input;
+}
+
+
+// .Form label {
+// }
+
+.Form button {
+    background: $base-dark;
+    color: $base-text;
+    padding: 0.5rem 2rem;
+    border-radius: $radius-middle;
+    cursor: pointer;
+    border: 2px solid $yellow-border;
+    height: 50px;
+
+}
+
+.line-through {
+    text-decoration: line-through;
+    color: #777 !important;
+}
+
+.hide-button {
+    display: none;
+}
+
+.header-button {
+    background: $yellow-border;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+    border: none;
+}

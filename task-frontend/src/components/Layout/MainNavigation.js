@@ -4,7 +4,7 @@ import{useEffect} from "react";
 import { useToasts } from 'react-toast-notifications';
 
 
-import classes from './MainNavigation.module.css';
+import classes from './_MainNavigation.module.scss';
 import { authActions } from '../../store/auth-slice';
 
 

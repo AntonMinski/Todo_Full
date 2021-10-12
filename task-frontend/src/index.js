@@ -4,7 +4,7 @@ import { ToastProvider } from 'react-toast-notifications';
 
 
 
-import './index.css';
+import './index.scss';
 import App from './App';
 import { AuthContextProvider } from './store/auth-context';
 

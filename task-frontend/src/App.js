@@ -13,6 +13,7 @@ function App() {
 
 
   return (
+    <div className='mainBlock'>
     <Layout>
            <Switch>
             
@@ -32,6 +33,7 @@ function App() {
       </Switch> 
 
     </Layout>
+    </div>
   );
 }
 

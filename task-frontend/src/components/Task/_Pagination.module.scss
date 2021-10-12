@@ -1,3 +1,5 @@
+@import 'styles/variables';
+
 .pagination {
     display: flex;
     align-items: center;
@@ -6,7 +8,7 @@
   
   .paginationItem {
     /* background: #fff; */
-    border: 2px solid #666;
+    border: 1px solid $base-light;
     padding: 10px 15px;
     border-radius: 50%;
     height: 45px;
@@ -28,17 +30,27 @@
     /* background: #fff; */
     border: none;
     padding: 10px;
-    color: rgb(196, 196, 196);
+    color: $base-text;  
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
     margin: 0 10px;
     cursor: pointer;
   }
   
-  .paginationItem.active {
-    border: 1px solid #888;
-    /* color: #888; */
+  .paginationItemActive {
     pointer-events: none;
+    padding: 10px 15px;
+    border-radius: 50%;
+    height: 45px;
+    width: 45px;
+    position: relative;
+    margin: 0 5px;
+    cursor: pointer;
+    font-weight: bold;
+
+    border: 2px solid $base-text;
+    /* color: #888; */
   }
+
   
   .prev.disabled,
   .next.disabled {

@@ -1,5 +1,5 @@
 import React, { useEffect, useCallback, useState } from 'react'
-import classes from './FilterTask.module.css'
+import classes from './_FilterTask.module.scss'
 import { useDispatch} from 'react-redux';
 
 import { getTasksAction } from '../../store/tasks-slice';
@@ -56,12 +56,20 @@ const FilterTask = () => {
         </select>
 
         
-        <input className={classes.TaskSearchInput} onChange={handleChangeTitle} value={title} type='text' id='task' placeholder="Search" />  
+        <input className={classes.TaskSearchInput} onChange={handleChangeTitle} value={title} type='text' id='task' placeholder="Search..." />  
 
         <span className="icon"><i className="fa fa-search"></i></span>
 
         {/* <input className={classes.Page_limit} onChange={handleChangePage} value={page} type='text' id='page' placeholder="Page" />   */}
-        <input className={classes.Page_limit} onChange={handleChangeLimit} value={limit} type='text' id='limit' placeholder="Limit" />  
+        {/* <input className={classes.Page_limit} onChange={handleChangeLimit} value={limit} type='text' id='limit' placeholder="Limit" />   */}
+
+        <select className={classes.selectLimit} value={limit} onChange={handleChangeLimit} >
+            <option value="">All</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="5">5</option>
+            <option value="10">10</option>
+        </select>
               
     </form>
     
