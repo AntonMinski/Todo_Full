@@ -20,16 +20,16 @@ export const addTaskAction = createAsyncThunk('tasks/addTaskAction', async ({e, 
  });
  
 
-export const getTasksAction = createAsyncThunk('tasks/getTaskAction', async (searchTerm, {rejectWithValue, dispatch}) => {
+export const getTasksAction = createAsyncThunk('tasks/getTaskAction', async (searchQuery, {rejectWithValue, dispatch}) => {
 
-    const response = await GetTasks(searchTerm)
+    const response = await GetTasks(searchQuery)
 
     if (!response.message) {
         dispatch(errorActions.setError(response));
         return rejectWithValue(response);
     } 
 
-    return response.data
+    return response
 
 });
 
@@ -63,11 +63,13 @@ const tasksSlice = createSlice({
     name: 'tasks',
     initialState: {
         tasks: [],
+        total: null,
         error: '',
     },
     extraReducers: {
-        [getTasksAction.fulfilled]: (state, action) => {
-            state.tasks = action.payload;
+        [getTasksAction.fulfilled]: (state, {payload}) => {
+            state.tasks = payload.data;
+            state.total = payload.total
         },
 
         [getTasksAction.rejected]: (state, {payload, meta, error}) => {

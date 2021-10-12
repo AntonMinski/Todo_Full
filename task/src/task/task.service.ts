@@ -38,7 +38,7 @@ export class TaskService {
        .where('"userId" = :user', {user: user.id})
        .andWhere('task ilike :name', {name: `%${title}%`})
        .andWhere((status !== '') ? `"isActive" = :isActive` : '1=1', { isActive })
-       .offset((skippedItems >0) ? skippedItems : 0)
+       .offset((skippedItems > 0) ? skippedItems : 0)
        .limit((limit) ? limit : 0)
        .getManyAndCount()
 
