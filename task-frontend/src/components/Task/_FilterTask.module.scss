@@ -1,8 +1,11 @@
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
 
+
 @import 'styles/variables';
 
 /* <link rel=”stylesheet” href=””> */
+
+
 
 
 
@@ -10,9 +13,7 @@
     display: flex;
     align-items: center;  
     flex-wrap: nowrap;
-    background-color: $base-light;
-    /* padding-top: 5px; */
-    /* padding-bottom: 5px; */
+    background-color: $base-dark;
     border-bottom: 2px solid $base-dark;
     height: 70px;
     padding-left: 13px;
@@ -21,24 +22,27 @@
     /* justify-content: center; */
 }
 
+.Task_add {
+    @extend .Task_search;
+    background-color: $base-dark;
+}
+
 
 .selectForm {
-    border-radius: $radius-middle 0 0 $radius-middle;
+    border-radius: $radius-middle;
     height: $height-input;
     background-color: $base-dark;
     color: $base-text;
     border: 1px solid $yellow-border;
-    border-right: none;
-    // width: 120px;
+    margin: 0 12px 0 auto;
+    outline: none;
+
 }
 
 
 
 
 .Task_search > div {
-    // display: flex;
-    // justify-content: center;
-    // align-items: center;
     border-radius: $radius-middle;
 }
 
@@ -62,29 +66,142 @@
 
 }
 
-
-/* .Task_search label {
-
-} */
-
-.Task_search button {
-    background: #ff9900;
-    color: #fff;
-    padding: 5rem 2rem;
-    border-radius: 20px;
-    cursor: pointer;
-    border: none;
-    margin-left: 5px;
+.limitBlock{
+    display: flex;
+    justify-content: flex-end;
+    height: 60px;
+    align-items: center;
 }
 
 .selectLimit {
-  margin: 0 12px 0 auto;
+  margin: 0 10px 0 auto;
   background-color: $base-dark;
   border-radius: $radius-middle;
   height: $height-input;
   border: 1px solid $yellow-border;
   color: $base-text;
+  outline: none;
 }
 
 
 
+
+
+// FORM PART
+
+.searchDiv {
+    position: relative;
+    outline: none;
+}
+
+.searchDivBar {
+    @extend .searchDiv;
+    display: flex;
+    justify-content: flex-end;
+    
+}
+
+.searchBox {
+    position: absolute;
+    // top: 50%;
+    // left: 50%;
+    transform:  translate(0%,-50%);
+    background: $base-dark;
+    // background: #2f3640;
+    height: 40px;
+    border-radius: 40px;
+    // padding: 10px;
+
+}
+
+.searchBoxBar {
+    @extend .searchBox;
+    transform: none;
+    position: initial;
+    margin-bottom: 10px;
+}
+
+.searchBox:hover > .searchInput {
+    width: 300px;
+    padding: 0 6px;
+    border: 1px solid $base-text;;
+    border-radius: $radius-middle;
+}
+
+.searchBox:hover > .searchInputBar {
+    transform: translateX(-55px);
+}
+
+.searchBox:hover > .searchButton {
+    background: $base-text;
+    background-color: $base-light;
+}
+
+
+
+.searchInput {
+    outline: none;
+    border:none;
+    background: none;
+    float:left;
+    padding: 0;
+    color: white;
+    font-size: 16px;
+    transition: 0.4s;
+    line-height: 40px;
+    width: 0px;
+
+}
+
+.searchInputBar {
+    @extend .searchInput;
+
+}
+
+.searchButton {
+    position: absolute;
+    top: -10%;
+    left: 100%;
+    // right: 10;
+    color: $color-an3;
+    // color: white;
+    float: right;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    // background: #2f3640;
+    // border: solid 1px greenyellow;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.4s;
+}
+.searchButton:hover {
+    cursor: pointer;
+}
+
+.searchButtonBar {
+    @extend .searchButton;
+    transform: translateX(-50px);
+}
+
+.searchInput:focus,
+.searchInput:active {
+    outline:none;
+} 
+
+
+@media screen and (max-width: 620px) {
+.searchBox:hover > .searchInput {
+    width: 150px;
+    padding: 0 6px;
+}
+}
+
+.addButton {
+    @extend .searchButton;
+    border-radius: $radius-middle;
+    color: $color-an1;
+    // border: 1px solid #AD923B;
+
+}

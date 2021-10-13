@@ -2,6 +2,8 @@
 
 @import 'components/StartingPage/StartingPageContent.module';
 @import 'components/Layout/MainNavigation.module';
+// @import 'components/Task/FilterTask.module';
+@import 'components/Task/FilterTask.module';
 @import 'styles/variables';
 
 h1,
@@ -27,11 +29,11 @@ h6 {
   flex-direction: row;
 }
 
-.leftMenu  {
-  flex-basis: 25%;
-  /* max-width: ; */
- background-color: $base-light;
-}
+// .leftMenu  {
+//   flex-basis: 25%;
+//   /* max-width: ; */
+//  background-color: $base-light;
+// }
 
 .App {
   max-width: 728px;
@@ -74,6 +76,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   color: #fff;
   background: linear-gradient(45deg, #e66465, #9198e5);
+  // background:  #1b1b1b;
 }
 
 
@@ -87,6 +90,9 @@ body {
 *:focus {
   outline: 3px dashed #228bec;
   outline-offset: 0;
+}
+*:active {
+  outline: none;
 }
 html {
   font: 62.5% / 1.15 sans-serif;
@@ -132,9 +138,14 @@ textarea {
 button,
 input {
   overflow: visible;
+  outline: none;
 }
 input[type="text"] {
   border-radius: 0;
+}
+
+input:active {
+  outline: none;
 }
 
 
@@ -162,6 +173,7 @@ input[type="text"] {
     border-bottom: 4px solid $base-dark;
     height: 75px;
     margin: 5px 0;
+    border-radius: 12px;
 }
 
 .Card--text h1 {
@@ -182,8 +194,9 @@ input[type="text"] {
 }
 
 .Card--button__done {
-    border: 1px solid #05e4e4;
-    color: $base-text;
+    // border: 1px solid #05e4e4;
+    border: 1px solid $color-an1;
+    color: $base-text;  
     margin-right: 1rem;
 }
 
@@ -212,6 +225,11 @@ input[type="text"] {
     width: 350px;
     color: $base-text;
     height: $height-input;
+    outline:none;
+}
+
+.Form input:active {
+  outline: none;
 }
 
 

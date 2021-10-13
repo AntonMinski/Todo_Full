@@ -6,7 +6,7 @@ import classes from './_Pagination.module.scss'
 
 
 
-const PaginationTask = ({page, setPage, limit, middle, setMiddle}) => {
+const PaginationTask = ({page, setPage, limit, setLimit, middle, setMiddle}) => {
  
   const total = useSelector(state => state.tasks.total);
   const totalPages = Math.ceil(total / limit)
@@ -47,9 +47,29 @@ const PaginationTask = ({page, setPage, limit, middle, setMiddle}) => {
     return list
   }, [middle, totalPages]);
 
+  const handleChangeLimit = e => {
+    setLimit(e.target.value);
+    setMiddle(3)
+    setPage(1)
+  };
+
   
   return (
-    <div>
+
+
+    <div className="limitBlock" >
+
+      {/* <form> */}
+
+        <select className="selectLimit" value={limit} onChange={handleChangeLimit} >
+          <option value="">On page</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="5">5</option>
+          <option value="10">10</option>
+        </select>
+
+      {/* </form> */}
 
       {limit && (
 
