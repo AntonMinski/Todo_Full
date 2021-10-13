@@ -1,4 +1,4 @@
-import React, { useCallback} from 'react'
+import React, { useCallback, useState} from 'react'
 import { useSelector} from 'react-redux';
 
 import classes from './_Pagination.module.scss'
@@ -6,29 +6,28 @@ import classes from './_Pagination.module.scss'
 
 
 
-const PaginationTask = ({page, setPage, limit, setLimit, middle, setMiddle}) => {
- 
+const PaginationTask = ({page, setPage, limit, setLimit}) => {
+  
+  const [currentMin, setCurrentMin] = useState(1)
   const total = useSelector(state => state.tasks.total);
   const totalPages = Math.ceil(total / limit)
 
-  const maxMiddle = (Math.ceil(totalPages / 5 - 1) * 5) + 3
-
   function goToFirstPage() {
-    setMiddle(3);
+    setCurrentMin(1);
     setPage(1);
   }
 
-  function goToPreviousPage() {
-    setMiddle((middle) => Math.max(3, middle - 5));
+  function goToPreviousBlock() {
+    setCurrentMin((currentMin) => Math.max(1, currentMin - 5));
   }
 
-  function goToNextPage() {
-    setMiddle((middle) => Math.min(maxMiddle, middle + 5))
+  function goToNextPageBlock() {
+    setCurrentMin((currentMin) => Math.min(totalPages, currentMin + 5))
  
   }
 
   function goToLastPage() {
-    setMiddle(maxMiddle);
+    setCurrentMin(totalPages);
     setPage(totalPages);
   }
 
@@ -38,18 +37,18 @@ const PaginationTask = ({page, setPage, limit, setLimit, middle, setMiddle}) => 
   }
 
   const getPaginationGroup = useCallback(() => {
-    const start = Math.max(1, middle - 2)
-    const end = Math.min(middle + 2, totalPages)
+    const start = Math.max(1, currentMin)
+    const end = Math.min(currentMin + 4, totalPages)
     let list = [];
     for (let i = start; i <= end; i++) {
       list.push(i);
     }
     return list
-  }, [middle, totalPages]);
+  }, [currentMin, totalPages]);
 
   const handleChangeLimit = e => {
     setLimit(e.target.value);
-    setMiddle(3)
+    setCurrentMin(1)
     setPage(1)
   };
 
@@ -59,8 +58,7 @@ const PaginationTask = ({page, setPage, limit, setLimit, middle, setMiddle}) => 
 
     <div className="limitBlock" >
 
-      {/* <form> */}
-
+   
         <select className="selectLimit" value={limit} onChange={handleChangeLimit} >
           <option value="">On page</option>
           <option value="1">1</option>
@@ -69,14 +67,13 @@ const PaginationTask = ({page, setPage, limit, setLimit, middle, setMiddle}) => 
           <option value="10">10</option>
         </select>
 
-      {/* </form> */}
-
+         
       {limit && (
 
         <div className={classes.pagination}>
 
           {/* first page button */}
-          {middle > 3 && (
+          {currentMin > 1 && (
             <button
               onClick={goToFirstPage}
               className={`${classes.paginationItem} 'active'`}        >
@@ -86,9 +83,9 @@ const PaginationTask = ({page, setPage, limit, setLimit, middle, setMiddle}) => 
 
 
           {/* previous button */}
-          {middle > 3 && (
+          {currentMin > 1 && (
             <button
-              onClick={goToPreviousPage}
+              onClick={goToPreviousBlock}
               className={`${classes.prev} ${page === 1 ? 'disabled' : ''}`}
             >
               &lt;&lt;
@@ -108,9 +105,9 @@ const PaginationTask = ({page, setPage, limit, setLimit, middle, setMiddle}) => 
 
           {/* next button */}
 
-          {middle < maxMiddle && (
+          {currentMin + 5 < totalPages && (
             <button
-              onClick={goToNextPage}
+              onClick={goToNextPageBlock}
               className={`${classes.next} ${page === totalPages ? 'disabled' : ''}`} >
               &gt;&gt;
             </button>
@@ -118,7 +115,7 @@ const PaginationTask = ({page, setPage, limit, setLimit, middle, setMiddle}) => 
 
 
           {/* last page button */}
-          {middle < totalPages && (
+          {currentMin + 5  < totalPages && (
             <button
               onClick={goToLastPage}
               className={`${classes.paginationItem} 'active'`}        >
@@ -129,7 +126,7 @@ const PaginationTask = ({page, setPage, limit, setLimit, middle, setMiddle}) => 
         </div>
 
       )}
-
+   
     </div>
   )
 }

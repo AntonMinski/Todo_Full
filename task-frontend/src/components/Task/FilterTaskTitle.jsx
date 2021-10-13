@@ -1,11 +1,9 @@
-import React, { useEffect, useCallback, useState } from 'react'
-import classes from './_FilterTask.module.scss'
+import React from 'react'
 
 import SearchIcon from '@mui/icons-material/Search';
 
 
 const FilterTaskTitle = ({title, setTitle}) => {
-  // const [title, setTtile] = useState('');
 
   
   const handleChangeTitle = e => {
@@ -13,7 +11,6 @@ const FilterTaskTitle = ({title, setTitle}) => {
   };
   
   return (
-      // <form className={classes.Task_search}>
     <div className="searchDivBar" >
       <div className="searchBoxBar">
         <input className="searchInputBar" onChange={handleChangeTitle} value={title} type='text' id='task' placeholder="Search..." />
@@ -22,8 +19,6 @@ const FilterTaskTitle = ({title, setTitle}) => {
         </button>
       </div>
     </div>
-
-    //  </form>
       
   )
 }
