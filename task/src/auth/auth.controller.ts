@@ -1,3 +1,4 @@
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 import {
     BadRequestException,
@@ -27,7 +28,8 @@ export class AuthController {
     constructor(
         private userService: UserService,
         private jwtService: JwtService,
-        private authService: AuthService
+        private authService: AuthService,
+        private configService: ConfigService
     ) {
     }
 
@@ -69,19 +71,39 @@ export class AuthController {
 
         // create token and send it in response:
         const jwt = await this.jwtService.signAsync({id: user.id});
+        const refreshToken = this.jwtService.sign({
+            id: user.id, 
+            secret: this.configService.get('NODE_ENV_JWT_REFRESH_SECRET_KEY'), 
+            expiresIn :this.configService.get('NODE_ENV_JWT_REFRESH_EXPIRES_IN')
+        })
 
+        // send token in response:
+        return {access_token: jwt, refreshToken: refreshToken};
+
+    }
+
+    @Post('refreshToken')
+    async refreshToken(
+        @Body('refreshToken') refreshToken: string,
+  
+    ) {
+        const user = await this.userService.findOne({refreshToken});
+
+        if (!user) {
+            throw new NotFoundException('User not found');
+        }
+
+        // if (!await bcrypt.compare(pass, user.password)) {
+        //     throw new BadRequestException('Wrong password');
+        // }
+
+        // create token and send it in response:
+        const jwt = await this.jwtService.signAsync({id: user.id});
+        
         // send token in response:
         return {access_token: jwt};
 
     }
 
-    // @UseGuards(AuthGuard)
-    // @Get('user')
-    // async user(@Req() request: Request) {
-    //     const id = await this.authService.userId(request);
-
-
-    //     return this.userService.findOne({id});
-    // }
 
 }
