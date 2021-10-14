@@ -5,15 +5,26 @@ import api from './axios.api';
 const baseUrl = `${process.env.REACT_APP_BASE_URL}/tasks`
 
 
-
-export const GetTasks = async (searchQuery) => {
+export const GetTasks = async () => {
   try {
     // console.log(searchResults)
-    const todos = await api.get( `${baseUrl}${searchQuery}` );
+    const todos = await api.get( `${baseUrl}?title=&status=`);
     return todos.data
   } catch (error) {
     return error.response.data
     // throw new Error(erro)
+  }
+}
+
+export const GetTasksFiltered = async (searchQuery) => {
+  try {
+    let {title, status, page, limit} = searchQuery
+  
+    const todos = await api.get( `${baseUrl}?title=${title}&status=${status}&page=${page}&limit=${limit}`);
+
+    return todos.data
+  } catch (error) {
+    return error.response.data
   }
 }
 

@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-import { GetTasks, addTask, completeTask, deleteTask } from '../api/task.api';
+import { GetTasksFiltered, addTask, completeTask, deleteTask } from '../api/task.api';
 import {errorActions} from './error-slice'
 
 
@@ -20,10 +20,18 @@ export const addTaskAction = createAsyncThunk('tasks/addTaskAction', async ({e, 
  });
  
 
-export const getTasksAction = createAsyncThunk('tasks/getTaskAction', async (searchQuery, {rejectWithValue, dispatch}) => {
+export const getTasksAction = createAsyncThunk('tasks/getTasksAction', async (_, {dispatch, getState, rejectWithValue}) => {
 
-    const response = await GetTasks(searchQuery)
-
+    const state = getState().tasks;
+    const searchQuery = {
+        title: state.filterTitle,
+        status: state.filterStatus,
+        page: state.filterPage,
+        limit: state.filterLimit,
+    }
+    const response = await GetTasksFiltered(searchQuery);
+    // const response = await GetTasks();
+    
     if (!response.message) {
         dispatch(errorActions.setError(response));
         return rejectWithValue(response);
@@ -33,11 +41,16 @@ export const getTasksAction = createAsyncThunk('tasks/getTaskAction', async (sea
 
 });
 
-export const getFilteredTasksAction = createAsyncThunk('tasks/getFilteredTaskAction', async (searchQuery, {rejectWithValue, dispatch}) => {
+export const getFilteredTasksAction = createAsyncThunk('tasks/getFilteredTaskAction', async (_, {dispatch, getState, rejectWithValue}) => {
 
-    const {title, status, page, limit} = searchQuery
-
-    const response = await GetTasks(`?title=${title}&status=${status}&page=${page}&limit=${limit}`)
+    const state = getState().tasks;
+    const searchQuery = {
+        title: state.filterTitle,
+        status: state.filterStatus,
+        page: state.filterPage,
+        limit: state.filterLimit,
+    }
+    const response = await GetTasksFiltered(searchQuery);
 
     if (!response.message) {
         dispatch(errorActions.setError(response));
@@ -80,14 +93,19 @@ const tasksSlice = createSlice({
         tasks: [],
         total: null,
         error: '',
-        filterTitle: '',
-        filterStatus: '',
-        filterPage: '',
-        filterLimit: ''
+        filterTitle: "",
+        filterStatus: "",
+        filterPage: "",
+        filterLimit: "",
     },
 
     extraReducers: {
         [getTasksAction.fulfilled]: (state, {payload}) => {
+            state.tasks = payload.data;
+            state.total = payload.total
+        },
+
+        [getFilteredTasksAction.fulfilled]: (state, {payload}) => {
             state.tasks = payload.data;
             state.total = payload.total
         },
@@ -133,11 +151,20 @@ const tasksSlice = createSlice({
         
     },
 
-    // reducers: {
-    //     setTasks: (state, action) => {
-    //         state.tasks = action.payload;
-    //     }
-    // }
+    reducers: {
+        setStateTitle: (state, action) => {
+            state.filterTitle = action.payload;
+        },
+        setStateStatus: (state, action) => {
+            state.filterStatus = action.payload;
+        },
+        setStatePage: (state, action) => {
+            state.filterPage = action.payload;
+        },
+        setStateLimit: (state, action) => {
+            state.filterLimit = action.payload;
+        },
+    }
 });
 
 export const tasksActions = tasksSlice.actions;

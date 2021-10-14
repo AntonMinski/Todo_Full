@@ -1,15 +1,28 @@
-import React, {useCallback} from 'react'
+import React, {useCallback, useEffect, useState} from 'react'
+import { useDispatch} from 'react-redux';
 
 import SearchIcon from '@mui/icons-material/Search';
+import { tasksActions, getTasksAction } from '../../store/tasks-slice';
 
 
-const FilterTaskTitle = ({title, setTitle}) => {
 
+const FilterTaskTitle = () => {
+  const dispatch = useDispatch();
+  const [title, setTitle] = useState('')
   
   const handleChangeTitle = useCallback(e => {
     e.preventDefault();
     setTitle(e.target.value);
-  }, [setTitle]);
+    dispatch(tasksActions.setStateTitle(e.target.value))
+  }, [setTitle, dispatch]);
+
+  const getTasks = useCallback(() => {
+    dispatch(getTasksAction())
+  }, [dispatch] );
+
+  useEffect(() => {
+    getTasks()
+  }, [title, getTasks]);
 
 
   

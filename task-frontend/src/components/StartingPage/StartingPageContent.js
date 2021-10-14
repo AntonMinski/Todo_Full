@@ -1,17 +1,29 @@
-import { useSelector } from 'react-redux';
-
-import { useState } from 'react'
+import { useState, useCallback, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux';
 
 import TaskItem from '../Task/TaskItem'
 import AddTask from '../Task/AddTask'
 import FilterTask from "../Task/FilterTask";
 import FilterTaskStatus from "../Task/FilterTaskStatus";
 import FilterTaskTitle from '../Task/FilterTaskTitle';
+import { getTasksAction } from '../../store/tasks-slice';
+
 
 
 const StartingPageContent = () => {
+  const dispatch = useDispatch();
   let [status, setStatus] = useState('')
   const [title, setTitle] = useState('');
+
+  const getTasks = useCallback(() => {
+    dispatch(getTasksAction())
+  }, [dispatch] );
+
+  useEffect(() => {
+    getTasks()
+  }, [getTasks, ]);
+
+
 
   const storeTasks = useSelector(state => state.tasks.tasks);
    

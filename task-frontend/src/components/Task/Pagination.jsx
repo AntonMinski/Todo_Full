@@ -1,12 +1,19 @@
-import React, { useCallback, useState} from 'react'
+import React, { useCallback, useState, useEffect} from 'react'
 import { useSelector} from 'react-redux';
+import { useDispatch} from 'react-redux';
 
 import classes from './_Pagination.module.scss'
+import { tasksActions, getTasksAction } from '../../store/tasks-slice';
 
 
 
+const PaginationTask = () => {
 
-const PaginationTask = ({page, setPage, limit, setLimit}) => {
+  const [page, setPage] = useState(1)
+  const [limit, setLimit] = useState('')
+
+  const dispatch = useDispatch();
+
   
   const [currentMin, setCurrentMin] = useState(1)
   const total = useSelector(state => state.tasks.total);
@@ -33,7 +40,8 @@ const PaginationTask = ({page, setPage, limit, setLimit}) => {
   const changePage = useCallback((event) => {
     const pageNumber = Number(event.target.textContent);
     setPage(pageNumber);
-  }, [setPage])
+    dispatch(tasksActions.setStatePage(pageNumber))
+  }, [setPage, dispatch])
 
   const getPaginationGroup = useCallback(() => {
     const start = Math.max(1, currentMin)
@@ -49,7 +57,16 @@ const PaginationTask = ({page, setPage, limit, setLimit}) => {
     setLimit(e.target.value);
     setCurrentMin(1)
     setPage(1)
-  }, [setLimit, setPage])
+    dispatch(tasksActions.setStateLimit(e.target.value))
+  }, [setLimit, setPage, dispatch])
+
+  const getTasks = useCallback(() => {
+    dispatch(getTasksAction())
+  }, [dispatch] );
+
+  useEffect(() => {
+    getTasks()
+  }, [page, limit, getTasks]);
 
   
   return (
