@@ -1,0 +1,62 @@
+@import 'styles/variables';
+
+.Card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* background: #444; */
+    background: $base-light;
+    padding: 0.5rem 1rem;
+    border-bottom: 4px solid $base-dark;
+    height: 75px;
+    margin: 5px 0;
+    border-radius: 12px;
+}
+
+.Card--text h1 {
+    color: $base-text;
+    padding-left: 0;
+    margin-left: 0;
+}
+
+.Card--button button {
+    // background: $base-dark;
+    padding: 0.4rem 0.4rem;
+    border-radius: $radius-middle;
+    margin-top: 20px;
+    cursor: pointer;
+    height: 40px;
+}
+
+.Card--button__delete {
+    // border: 1px solid $yellow-border;
+    color: $base-text;
+    padding: 20px 0 initial 0;
+    margin-bottom: -30px;
+}
+
+.Card--button__done {
+    // border: 1px solid #05e4e4;
+    // border: 1px solid $color-an1;
+    // color: $base-text;  
+    margin-right: 1rem;
+}
+
+.Card--button__active {
+    // border: 1px solid #05e4e4;
+    // border: 1px solid $color-an1;
+    // color: $base-text;  
+    margin-right: 0;
+    padding-right: 0;
+}
+
+.line-through {
+    text-decoration: line-through;
+    color: #777 !important;
+}
+
+.hide-button {
+    color: grey;
+    margin-right: 0;
+    // display: none;
+}

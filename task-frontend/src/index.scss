@@ -4,6 +4,7 @@
 @import 'components/Layout/MainNavigation.module';
 // @import 'components/Task/FilterTask.module';
 @import 'components/Task/FilterTask.module';
+@import 'components/Task/TaskItem.module';
 @import 'styles/variables';
 
 h1,
@@ -165,42 +166,6 @@ input:active {
 
 
 
-.Card {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    /* background: #444; */
-    background: $base-light;
-    padding: 0.5rem 1rem;
-    border-bottom: 4px solid $base-dark;
-    height: 75px;
-    margin: 5px 0;
-    border-radius: 12px;
-}
-
-.Card--text h1 {
-    color: $base-text;
-}
-
-.Card--button button {
-    background: $base-dark;
-    padding: 0.4rem 1rem;
-    border-radius: $radius-middle;
-    cursor: pointer;
-    height: 40px;
-}
-
-.Card--button__delete {
-    border: 1px solid $yellow-border;
-    color: $base-text;
-}
-
-.Card--button__done {
-    // border: 1px solid #05e4e4;
-    border: 1px solid $color-an1;
-    color: $base-text;  
-    margin-right: 1rem;
-}
 
 .Form {
     display: flex;
@@ -249,14 +214,7 @@ input:active {
 
 }
 
-.line-through {
-    text-decoration: line-through;
-    color: #777 !important;
-}
 
-.hide-button {
-    display: none;
-}
 
 .header-button {
     background: $yellow-border;
