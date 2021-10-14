@@ -31,7 +31,7 @@ export class TaskService {
         
         // convert string to boolean:
         let isActive
-        if (status)  { isActive = true ? status ==='active' : false }
+        if (status)  { isActive = true ? status ==='active' : false }   
   
         
        const result = await this.repository.createQueryBuilder()

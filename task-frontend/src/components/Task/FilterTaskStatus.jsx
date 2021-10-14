@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useCallback} from 'react'
 
 
 import CallSplitIcon from '@mui/icons-material/CallSplit';
@@ -8,8 +8,8 @@ import DoneAllIcon from '@mui/icons-material/DoneAll';
 
 const FilterTaskStatus = ({status, setStatus}) => {
 
-    function handleChangeStatus (value) {
-            setStatus(value);   };
+    const handleChangeStatus = useCallback((value) => {
+            setStatus(value);   }, [setStatus]);
   
   return (
     <div className='leftMenu'>

@@ -12,29 +12,28 @@ const PaginationTask = ({page, setPage, limit, setLimit}) => {
   const total = useSelector(state => state.tasks.total);
   const totalPages = Math.ceil(total / limit)
 
-  function goToFirstPage() {
+  const goToFirstPage = useCallback(() => {
     setCurrentMin(1);
     setPage(1);
-  }
+  }, [setPage])
 
-  function goToPreviousBlock() {
+  const goToPreviousBlock = useCallback(() => {
     setCurrentMin((currentMin) => Math.max(1, currentMin - 5));
-  }
+  }, [])
 
-  function goToNextPageBlock() {
+  const goToNextPageBlock = useCallback(() => {
     setCurrentMin((currentMin) => Math.min(totalPages, currentMin + 5))
- 
-  }
+   }, [totalPages])
 
-  function goToLastPage() {
+  const goToLastPage = useCallback(() => {
     setCurrentMin(totalPages);
     setPage(totalPages);
-  }
+  }, [setPage, totalPages])
 
-  function changePage(event) {
+  const changePage = useCallback((event) => {
     const pageNumber = Number(event.target.textContent);
     setPage(pageNumber);
-  }
+  }, [setPage])
 
   const getPaginationGroup = useCallback(() => {
     const start = Math.max(1, currentMin)
@@ -46,11 +45,11 @@ const PaginationTask = ({page, setPage, limit, setLimit}) => {
     return list
   }, [currentMin, totalPages]);
 
-  const handleChangeLimit = e => {
+  const handleChangeLimit = useCallback((e) =>  {
     setLimit(e.target.value);
     setCurrentMin(1)
     setPage(1)
-  };
+  }, [setLimit, setPage])
 
   
   return (

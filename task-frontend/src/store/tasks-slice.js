@@ -33,6 +33,21 @@ export const getTasksAction = createAsyncThunk('tasks/getTaskAction', async (sea
 
 });
 
+export const getFilteredTasksAction = createAsyncThunk('tasks/getFilteredTaskAction', async (searchQuery, {rejectWithValue, dispatch}) => {
+
+    const {title, status, page, limit} = searchQuery
+
+    const response = await GetTasks(`?title=${title}&status=${status}&page=${page}&limit=${limit}`)
+
+    if (!response.message) {
+        dispatch(errorActions.setError(response));
+        return rejectWithValue(response);
+    } 
+
+    return response
+
+});
+
 export  const completeTaskAction = createAsyncThunk('tasks/completeTaskAction', async ({id},  {rejectWithValue, dispatch}) => {
     const response = await completeTask(id)
 
@@ -65,7 +80,12 @@ const tasksSlice = createSlice({
         tasks: [],
         total: null,
         error: '',
+        filterTitle: '',
+        filterStatus: '',
+        filterPage: '',
+        filterLimit: ''
     },
+
     extraReducers: {
         [getTasksAction.fulfilled]: (state, {payload}) => {
             state.tasks = payload.data;

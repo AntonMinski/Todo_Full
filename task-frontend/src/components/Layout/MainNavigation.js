@@ -41,9 +41,11 @@ const MainNavigation = () => {
           
       <div>
         <ul>
-            <li>
-            <Link to='/auth'>Login</Link>
-            </li>
+            {!storeIsLoggedIn && (
+              <li>
+              <Link to='/auth'>Login</Link>
+              </li>
+            )}            
           { storeIsLoggedIn && (
             <li>
             <button onClick={logoutHandler}>Logout</button>

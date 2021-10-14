@@ -2,6 +2,7 @@ import React, {useCallback} from "react";
 import {  useDispatch} from 'react-redux';
 
 import { completeTaskAction, deleteTaskAction } from '../../store/tasks-slice';
+// import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 
 
 const TaskItem = ({ todo }) => {
@@ -35,7 +36,7 @@ const TaskItem = ({ todo }) => {
         <button
           onClick={() => deleteTask(todo.id)}
           className='Card--button__delete'
-        >
+        > 
           Delete
         </button>
       </div>

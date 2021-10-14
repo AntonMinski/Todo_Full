@@ -105,14 +105,10 @@
 
 .searchBox {
     position: absolute;
-    // top: 50%;
-    // left: 50%;
     transform:  translate(0%,-50%);
     background: $base-dark;
-    // background: #2f3640;
     height: 40px;
     border-radius: 40px;
-    // padding: 10px;
 
 }
 
@@ -139,8 +135,6 @@
     background-color: $base-light;
 }
 
-
-
 .searchInput {
     outline: none;
     border:none;
@@ -151,28 +145,32 @@
     font-size: 16px;
     transition: 0.4s;
     line-height: 40px;
-    width: 0px;
+    width: 0;
 
+    &.withText {
+        width: 300px;
+    }
 }
+
 
 .searchInputBar {
     @extend .searchInput;
 
+    &.withText {
+        width: 300px;
+    }
 }
+
 
 .searchButton {
     position: absolute;
     top: -10%;
     left: 100%;
-    // right: 10;
     color: $color-an3;
-    // color: white;
     float: right;
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    // background: #2f3640;
-    // border: solid 1px greenyellow;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -185,6 +183,7 @@
 .searchButtonBar {
     @extend .searchButton;
     transform: translateX(-50px);
+    
 }
 
 .searchInput:focus,
@@ -204,6 +203,5 @@
     @extend .searchButton;
     border-radius: $radius-middle;
     color: $color-an1;
-    // border: 1px solid #AD923B;
 
 }
