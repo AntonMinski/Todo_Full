@@ -8,6 +8,11 @@ import classes from './_MainNavigation.module.scss';
 import { authActions } from '../../store/auth-slice';
 
 
+import PersonIcon from '@mui/icons-material/Person';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
+
+
 const MainNavigation = () => {
   const { addToast, removeAllToasts } = useToasts();
 
@@ -43,12 +48,17 @@ const MainNavigation = () => {
         <ul>
             {!storeIsLoggedIn && (
               <li>
-              <Link to='/auth'>Login</Link>
+              <Link to='/auth'>
+              <AccountBoxIcon  sx={{ fontSize: 35 }} />
+                {/* Login */}
+              </Link>
               </li>
             )}            
           { storeIsLoggedIn && (
             <li>
-            <button onClick={logoutHandler}>Logout</button>
+            <button onClick={logoutHandler}>
+            <ExitToAppIcon  sx={{ fontSize: 35 }} />
+            </button>
             </li>
           )}
         </ul>

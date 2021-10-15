@@ -74,8 +74,12 @@
     margin: 20px 0;
 }
 
+.limitBlock:active{
+    outline: none
+}
+
 .selectLimit {
-  margin: 0 10px 0 auto;
+  margin: 0 15px 0 auto;
   background-color: $base-dark;
   border-radius: $radius-middle;
   height: $height-input;
@@ -87,12 +91,21 @@
   
 }
 
+.selectLimit:active {
+    outline: none
+}
+
+.selectLimit select:active {
+    outline: none
+}
+
 
 .selectLabel {
     @extend .selectLimit;
     border: none;
     color: none;
     font-size: 16px;
+    margin-right: 5px;
   }
 
 

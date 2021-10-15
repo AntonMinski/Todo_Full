@@ -2,12 +2,16 @@ import React, {useCallback} from "react";
 import {  useDispatch} from 'react-redux';
 
 import { completeTaskAction, deleteTaskAction } from '../../store/tasks-slice';
-// import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
+
 import RestoreFromTrashOutlinedIcon from '@mui/icons-material/RestoreFromTrashTwoTone';
-// import AssignmentTurnedInOutlinedIcon from '@mui/icons-material/AssignmentTurnedInOutlined';
-import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined';
-import CheckCircleOutlinedIcon from '@mui/icons-material/CheckCircleOutlined';
-// import DoneOutlineOutlinedIcon from '@mui/icons-material/DoneOutlineOutlined';
+
+// import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined';
+// import CheckCircleOutlinedIcon from '@mui/icons-material/CheckCircleOutlined';
+// import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+
+
+import CheckBoxOutlineBlankRoundedIcon from '@mui/icons-material/CheckBoxOutlineBlankRounded';
+import CheckBoxOutlinedIcon from '@mui/icons-material/CheckBoxOutlined';
 
 const TaskItem = ({ todo }) => {
   const dispatch = useDispatch();
@@ -30,11 +34,11 @@ const TaskItem = ({ todo }) => {
         onClick={() => updateTask(todo.id)}
         className={(!todo.isActive) ? `hide-button` : 'Card--button__done'}
       >  {!todo.isActive && (
-        <CheckCircleOutlinedIcon sx={{ fontSize: 35 }} />
+        <CheckBoxOutlinedIcon sx={{ fontSize: 35 }} />
       )}
 
         {!!todo.isActive && (
-          <CircleOutlinedIcon sx={{ fontSize: 35 }} />
+          <CheckBoxOutlineBlankRoundedIcon sx={{ fontSize: 35 }} />
         )}
       </button>
       <div className='Card--text'>

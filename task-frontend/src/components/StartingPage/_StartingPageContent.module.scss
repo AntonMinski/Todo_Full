@@ -28,6 +28,10 @@
 
     &.active{
         outline: none;
+        // border-bottom: 2px solid $base-text;
+        font-weight: bold;
+        color: white;
+        // background-color: $base-dark;
     }
 }
 
@@ -36,6 +40,11 @@
     cursor: pointer;
     // background-color:$base-dark;
     border-bottom: 2px solid $base-text;
+}
+
+.statusIcon {
+    // background-color: $color-an4;
+    color: $color-an1;
 }
 
 

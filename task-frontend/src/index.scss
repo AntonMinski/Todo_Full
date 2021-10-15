@@ -103,7 +103,12 @@ html {
 h1,
 h2 {
   margin-bottom: 0;
+  text-align: center;
 }
+
+h2 { font-size: 20px;
+}
+
 ul {
   list-style: none;
   padding: 0;
@@ -133,6 +138,7 @@ input,
 optgroup,
 select,
 textarea {
+  outline: none;
   font-family: inherit;
   font-size: 100%;
   line-height: 1.15;

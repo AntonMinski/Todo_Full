@@ -26,22 +26,22 @@ const FilterTaskStatus = () => {
       getTasks()
     }, [status, getTasks]);
 
-  
+
   return (
     <div className='leftMenu'>
 
-        <div className="itemBlock" onClick={() => handleChangeStatus('')}  >
-          <CallSplitIcon sx={{ fontSize: 40 }} />
+        <div className={`itemBlock ${status === '' ? 'active' : ''}`} onClick={() => handleChangeStatus('')}  >
+          <CallSplitIcon sx={{ fontSize: 40 }} className={`${status === '' ? 'statusIcon' : ''}`} />
           <span>All</span>
         </div>
 
-        <div className="itemBlock" value='active' onClick={() => handleChangeStatus('active')}  >
-            <PlayCircleOutlineIcon sx={{ fontSize: 40 }} />
+        <div className={`itemBlock ${status === 'active' ? 'active' : ''}`} value='active' onClick={() => handleChangeStatus('active')}  >
+            <PlayCircleOutlineIcon sx={{ fontSize: 40 }} className={`${status === 'active' ? 'statusIcon' : ''}`} />
             <span>Active</span>
         </div>
 
-        <div className="itemBlock" value='completed' onClick={() => handleChangeStatus('completed')} >
-            <DoneAllIcon sx={{ fontSize: 40 }} />
+        <div className={`itemBlock ${status === 'completed' ? 'active' : ''}`} value='completed' onClick={() => handleChangeStatus('completed')} >
+            <DoneAllIcon sx={{ fontSize: 40 }} className={`${status === 'completed' ? 'statusIcon' : ''}`} />
             <span>Completed</span>
         </div>
       
@@ -50,4 +50,4 @@ const FilterTaskStatus = () => {
   )
 }
 
-export default FilterTaskStatus
+export default FilterTaskStatus;
