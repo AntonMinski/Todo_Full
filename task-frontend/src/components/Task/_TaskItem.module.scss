@@ -24,7 +24,7 @@
     padding: 0.4rem 0.4rem;
     border-radius: $radius-middle;
     margin-top: 20px;
-    cursor: pointer;
+    
     height: 40px;
 }
 
@@ -33,6 +33,7 @@
     color: $base-text;
     padding: 20px 0 initial 0;
     margin-bottom: -30px;
+    cursor: pointer;
 }
 
 .Card--button__done {
@@ -40,6 +41,7 @@
     // border: 1px solid $color-an1;
     // color: $base-text;  
     margin-right: 1rem;
+    cursor: pointer;
 }
 
 .Card--button__active {
@@ -48,6 +50,7 @@
     // color: $base-text;  
     margin-right: 0;
     padding-right: 0;
+    cursor: pointer;
 }
 
 .line-through {
@@ -58,5 +61,6 @@
 .hide-button {
     color: grey;
     margin-right: 0;
+    cursor: pointer;
     // display: none;
 }

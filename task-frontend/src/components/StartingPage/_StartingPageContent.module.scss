@@ -13,6 +13,7 @@
 }
 
 .itemBlock {
+    outline: none;
     display: flex;  
     font-size: 30px;
     align-items: flex-end;
@@ -24,11 +25,21 @@
         // display: flexk;
         align-self: flex-end;
     }
+
+    &.active{
+        outline: none;
+    }
 }
 
-.itemBlock:hover {
+.itemBlock:hover,
+.itemBlock:active {
     cursor: pointer;
+    // background-color:$base-dark;
+    border-bottom: 2px solid $base-text;
 }
+
+
+
 
 .inputs {
     display: flex;
@@ -37,4 +48,6 @@
     justify-content: space-between;
     align-items: flex-end;
     position: relative;
+    border-bottom: 5px solid rgba(151, 151, 151, 0.267);
+    // border-bottom: 5px solid $color-an5;
 }

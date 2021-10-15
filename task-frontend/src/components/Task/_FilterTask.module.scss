@@ -71,7 +71,7 @@
     flex-direction: column;
     justify-content: flex-end;
     align-items: center;
-    margin: 10px 0;
+    margin: 20px 0;
 }
 
 .selectLimit {
@@ -79,12 +79,21 @@
   background-color: $base-dark;
   border-radius: $radius-middle;
   height: $height-input;
-  border: 1px solid $yellow-border;
+  border: 1px solid $base-dark;
   color: $base-text;
   outline: none;
   display: block;
+  cursor: pointer;
+  
 }
 
+
+.selectLabel {
+    @extend .selectLimit;
+    border: none;
+    color: none;
+    font-size: 16px;
+  }
 
 
 

@@ -30,10 +30,10 @@ const FilterTaskStatus = () => {
   return (
     <div className='leftMenu'>
 
-        <button className="itemBlock" onClick={() => handleChangeStatus('')}  >
+        <div className="itemBlock" onClick={() => handleChangeStatus('')}  >
           <CallSplitIcon sx={{ fontSize: 40 }} />
           <span>All</span>
-        </button>
+        </div>
 
         <div className="itemBlock" value='active' onClick={() => handleChangeStatus('active')}  >
             <PlayCircleOutlineIcon sx={{ fontSize: 40 }} />

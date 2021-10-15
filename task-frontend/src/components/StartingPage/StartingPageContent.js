@@ -3,7 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import TaskItem from '../Task/TaskItem'
 import AddTask from '../Task/AddTask'
-import FilterTask from "../Task/FilterTask";
+import PaginationTask from "../Task/Pagination";
+
 import FilterTaskStatus from "../Task/FilterTaskStatus";
 import FilterTaskTitle from '../Task/FilterTaskTitle';
 import { getTasksAction } from '../../store/tasks-slice';
@@ -37,7 +38,9 @@ const StartingPageContent = () => {
         <div className="inputs">
          <AddTask /> <FilterTaskTitle title={title} setTitle={setTitle} />
         </div>
-        <FilterTask title={title} setTitle={setTitle} status={status} setStatus={setStatus} />
+        <div>
+        <PaginationTask />
+        </div>
         {storeTasks.map((task) => (
           <TaskItem
             key={task.id}

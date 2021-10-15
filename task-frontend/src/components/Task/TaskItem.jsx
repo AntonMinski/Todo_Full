@@ -4,10 +4,10 @@ import {  useDispatch} from 'react-redux';
 import { completeTaskAction, deleteTaskAction } from '../../store/tasks-slice';
 // import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import RestoreFromTrashOutlinedIcon from '@mui/icons-material/RestoreFromTrashTwoTone';
-import AssignmentTurnedInOutlinedIcon from '@mui/icons-material/AssignmentTurnedInOutlined';
+// import AssignmentTurnedInOutlinedIcon from '@mui/icons-material/AssignmentTurnedInOutlined';
 import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined';
 import CheckCircleOutlinedIcon from '@mui/icons-material/CheckCircleOutlined';
-import DoneOutlineOutlinedIcon from '@mui/icons-material/DoneOutlineOutlined';
+// import DoneOutlineOutlinedIcon from '@mui/icons-material/DoneOutlineOutlined';
 
 const TaskItem = ({ todo }) => {
   const dispatch = useDispatch();
