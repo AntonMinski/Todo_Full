@@ -14,15 +14,9 @@ export class JwtRefreshTokenStrategy extends PassportStrategy(Strategy,"jwt-refr
     private configService: ConfigService,
     private readonly authService: AuthService,
     ) {
-    // super({
-    //   jwtFromRequest: ExtractJwt.fromBodyField('refreshToken'),
-    //   ignoreExpiration: true,
-    //   secretOrKey: configService.get('NODE_ENV_JWT_REFRESH_SECRET_KEY'),
-    //   // secretOrKey: configService.get('NODE_ENV_JWT_SECRET_KEY'),
-    //   passReqToCallback: true
-    // });
+  
     super({
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      jwtFromRequest: ExtractJwt.fromBodyField('refreshToken'),
       ignoreExpiration: true,
       secretOrKey: configService.get('NODE_ENV_JWT_SECRET_KEY'),
       passReqToCallback: true
