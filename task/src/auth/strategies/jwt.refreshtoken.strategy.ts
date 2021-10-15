@@ -14,25 +14,30 @@ export class JwtRefreshTokenStrategy extends PassportStrategy(Strategy,"jwt-refr
     private configService: ConfigService,
     private readonly authService: AuthService,
     ) {
+    // super({
+    //   jwtFromRequest: ExtractJwt.fromBodyField('refreshToken'),
+    //   ignoreExpiration: true,
+    //   secretOrKey: configService.get('NODE_ENV_JWT_REFRESH_SECRET_KEY'),
+    //   // secretOrKey: configService.get('NODE_ENV_JWT_SECRET_KEY'),
+    //   passReqToCallback: true
+    // });
     super({
-      jwtFromRequest: ExtractJwt.fromBodyField('refreshToken'),
+      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: true,
-      // secretOrKey: configService.get('NODE_ENV_JWT_REFRESH_SECRET_KEY'),
       secretOrKey: configService.get('NODE_ENV_JWT_SECRET_KEY'),
       passReqToCallback: true
     });
   }
  
   async validate(req,payload: any) {
-
-    
+       
     // const user = await this.userService.findOne(payload.email);
     const user = await this.authService.validateUser(payload);
 
-    console.log(user)
+    // console.log('user.refreshToken', user.refreshToken,  'req.body.refreshToken', req.body.refreshToken)
 
     if(!user){
-        throw new UnauthorizedException('123');
+        throw new UnauthorizedException();
     }
     if(req.body.refreshToken != user.refreshToken){
         throw new UnauthorizedException();

@@ -20,6 +20,8 @@ import { RegisterDto } from './model/register.dto';
 import {JwtService} from "@nestjs/jwt";
 import {Request, Response} from 'express';
 import { AuthGuard } from '@nestjs/passport';
+import { GetUser } from './guards/get-user.decorator';
+import { User } from 'src/user/model/user.entity';
 
 
 
@@ -89,8 +91,12 @@ export class AuthController {
 
     @UseGuards(AuthGuard('jwt-refreshtoken'))
     @Post('refreshtoken')
-    async refreshToken(@Req() req) {
-        return await this.login(req.user.email, req.user.password);
+    async refreshToken(
+        @GetUser() user: User) {
+            
+        const jwt = await this.jwtService.signAsync({id: user.id});
+        
+        return {access_token: jwt};
     }
 
 
