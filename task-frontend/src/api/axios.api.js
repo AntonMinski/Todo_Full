@@ -14,6 +14,26 @@ export const errorResponseHandler = (error) => {
   }
 }
 
+const getNewToken = async() => {
+  const refreshToken = localStorage.getItem('refreshToken')
+  const token = localStorage.getItem('token')
+  // console.log('refreshToken', refreshToken)
+
+  const config = {
+    method: "POST",
+    url: `${process.env.REACT_APP_BASE_URL}/refreshToken`,
+    data: { refreshToken },
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    },
+  }
+  // console.log(config) 
+  const response = await axios(config)
+  localStorage.setItem('token', response.data.access_token)
+  console.log('accessToken', response.data.access_token)
+}
+ 
 
 const api = axios.create({
     baseURL: `${process.env.REACT_APP_BASE_URL}/tasks`,
@@ -39,19 +59,21 @@ api.interceptors.response.use((response) => {
 
   return response
 
-}, async function (error) {
-
-  toast.error(error.response.data.message)
+}, (error) => {
+  console.log(error.response.status)
+  if (error.response.data.statusCode === 401) {
+      getNewToken()
+      
+      const originalRequest = error.config
+      return api(originalRequest)
+  }
+  else {
+    toast.error(error.response.data.message)
+  }
+  
 
 });
 
-
-
-
-// api.interceptors.response.use(
-//   response => response,
-//   errorResponseHandler
-// );
   
 export default api
 
@@ -60,14 +82,3 @@ export default api
 
 
 
-   // Response interceptor for API calls
-// api.interceptors.response.use((response) => {
-//   return response
-// }, async function (error) {
-//   const originalRequest = error.config;
-//   if (error.response.status === 403 && !originalRequest._retry) {
-//     originalRequest._retry = true;
-//     return setTimeout( api(originalRequest), 2000)
-//   }
-//   return Promise.reject(error);
-// });

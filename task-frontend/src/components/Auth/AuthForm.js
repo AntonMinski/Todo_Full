@@ -54,9 +54,13 @@ const AuthForm = () => {
   .then(response => 
     { 
       // authCtx.login(response.data.access_token);
+      const tokens = {
+        access_token: response.data.access_token,
+        refreshToken: response.data.refreshToken,
+      }
 
-      dispatch(authActions.setLogin(response.data.access_token))
-
+      dispatch(authActions.setLogin(tokens))
+      // console.log(response)
 
       history.replace('/'); // redirect after login
     })
