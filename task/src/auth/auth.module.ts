@@ -4,7 +4,10 @@ import { UserModule } from 'src/user/user.module';
 import { UserService } from 'src/user/user.service';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
-import { JwtStrategy } from './guards/jwt.strategy';
+import { JwtStrategy } from './strategies/jwt.strategy';
+import { JwtRefreshTokenStrategy } from './strategies/jwt.refreshtoken.strategy';
+
+
 
 @Module({
   imports: [
@@ -13,7 +16,7 @@ import { JwtStrategy } from './guards/jwt.strategy';
     CommonModule
   ],
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategy],
+  providers: [AuthService, JwtRefreshTokenStrategy ,JwtStrategy],
   exports: [AuthService]
 })
 export class AuthModule {}

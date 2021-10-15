@@ -21,6 +21,8 @@ export abstract class AbstractService {
         return this.repository.findOne(condition, {relations});
     }
 
+    // async findOneAndUpdate
+
     async update(id: number, data): Promise<any> {
         return this.repository.update(id, data)
     }

@@ -6,6 +6,7 @@ import { AuthService } from '../auth.service';
 import { User } from 'src/user/model/user.entity';
 import { ConfigService } from '@nestjs/config';
 
+
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(
@@ -18,6 +19,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       secretOrKey: configService.get('NODE_ENV_JWT_SECRET_KEY'),
     });
   }
+
+
 
 
   async validate(payload: string): Promise<User> {

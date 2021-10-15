@@ -1,4 +1,6 @@
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { RefreshJwtAuthGuard } from './guards/refresh-jwt-auth.guard';
+
 
 import {
     BadRequestException,
@@ -17,6 +19,7 @@ import * as bcrypt from 'bcrypt';
 import { RegisterDto } from './model/register.dto';
 import {JwtService} from "@nestjs/jwt";
 import {Request, Response} from 'express';
+import { AuthGuard } from '@nestjs/passport';
 
 
 
@@ -77,32 +80,17 @@ export class AuthController {
             expiresIn :this.configService.get('NODE_ENV_JWT_REFRESH_EXPIRES_IN')
         })
 
+        const UserUpdateToken = await this.userService.updateRefreshToken(email, refreshToken)
+
         // send token in response:
-        return {access_token: jwt, refreshToken: refreshToken};
+        return {access_token: jwt, refreshToken: UserUpdateToken.refreshToken};
 
     }
 
-    @Post('refreshToken')
-    async refreshToken(
-        @Body('refreshToken') refreshToken: string,
-  
-    ) {
-        const user = await this.userService.findOne({refreshToken});
-
-        if (!user) {
-            throw new NotFoundException('User not found');
-        }
-
-        // if (!await bcrypt.compare(pass, user.password)) {
-        //     throw new BadRequestException('Wrong password');
-        // }
-
-        // create token and send it in response:
-        const jwt = await this.jwtService.signAsync({id: user.id});
-        
-        // send token in response:
-        return {access_token: jwt};
-
+    @UseGuards(AuthGuard('jwt-refreshtoken'))
+    @Post('refreshtoken')
+    async refreshToken(@Req() req) {
+        return await this.login(req.user.email, req.user.password);
     }
 
 
