@@ -5,13 +5,15 @@ export default class TypeOrmConfig {
   static getOrmConfig(configService: ConfigService): TypeOrmModuleOptions {
     return {
       type: 'postgres',
-      host: configService.get('NODE_ENV_DATABASE_HOST'),
+      host: 'db',
       port: configService.get('NODE_ENV_DATABASE_PORT'),
       username: configService.get('NODE_ENV_DATABASE_USER'),
       password: configService.get('NODE_ENV_DATABASE_PASSWORD'),
-      database: configService.get('NODE_ENV_DATABASE_NAME'),
+      database: 'tododb',
       autoLoadEntities: true,
-    //   entities: [__dirname + '/../**/*.entity{.ts,.js}'],
+      entities: [
+      __dirname + '/../**/*.entity.ts',
+    ],
       synchronize: true,
     //   logging: true,
     };

@@ -1,0 +1,27 @@
+version: "3.7"
+services:
+  backend:
+    build:  # means: user this.Dockerfile
+      context: .
+      dockerfile: Dockerfile
+    ports: 
+      - 8000:3000 # 8000-localhost port, 3000-container localhost port
+    volumes: 
+      - .:/app  # to reflect change from app to container
+    depends_on: 
+      - db # means, that db executed 1-st, than the container
+
+
+
+  db:
+    image: postgres
+    restart: always
+    ports:
+      - "5423:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: user
+      POSTGRES_DB: tododb
+    volumes: 
+      - .pgdata:/var/lib/postgresql/data \
+    
