@@ -74,7 +74,7 @@ const PaginationTask = () => {
 
     <div className="limitBlock" >
 
-        <label className='selectLabel' for="selectLimit">on page</label>
+        <label className='selectLabel' htmlFor="selectLimit">on page</label>
         <select className="selectLimit" value={limit} onChange={handleChangeLimit}>
         
           <option value="">--</option>

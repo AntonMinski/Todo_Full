@@ -6,6 +6,8 @@ import classes from './AuthForm.module.css';
 
 import { useDispatch } from 'react-redux';
 import { authActions } from '../../store/auth-slice';
+import toast from '../../api/toast';
+
 
 
 
@@ -27,55 +29,66 @@ const AuthForm = () => {
     setIsLogin((prevState) => !prevState);
   };
 
-  const submitHandler = (event) => {
+  const login = (enteredEmail, enteredPassword, login_url) => {
+    axios
+      .post(login_url, {
+        email: enteredEmail,
+        password: enteredPassword,
+      })
+      .then((response) => {
+        // authCtx.login(response.data.access_token);
+        const tokens = {
+          access_token: response.data.access_token,
+          refreshToken: response.data.refreshToken,
+        };
+
+        dispatch(authActions.setLogin(tokens));
+        // console.log(response)
+
+        history.replace("/"); // redirect after login
+        setIsLogin(true);
+      })
+      .catch((error) => {
+        toast.error(error.response.data.message);
+      });
+  }
+
+  const SubmitHandler = (event) => {
     event.preventDefault();
 
     const enteredEmail = emailInputRef.current.value;
     const enteredPassword = passwordInputRef.current.value;
-    let url;
-    let passwordConfirm;
+    let login_url = `${process.env.REACT_APP_BASE_URL}/login`;
+    // let passwordConfirm;
 
-     if (isLogin) { 
+    
+
+    if (!isLogin) { 
       
-      url = `${process.env.REACT_APP_BASE_URL}/login`;
-      passwordConfirm = enteredPassword;
+      const reg_url = `${process.env.REACT_APP_BASE_URL}/register`; 
+      const passwordConfirm = passwordConfirmRef.current.value;
 
+      axios.post(reg_url, {
+        email: enteredEmail,
+        password: enteredPassword,
+        password_confirm: passwordConfirm,
+
+    }).then(response => {
+      toast.success('Account created')
+      setTimeout(login(enteredEmail, enteredPassword, login_url), 3000)
+
+    }).catch(error => toast.error(error.response.data.message))
     } else {
     
-      url = `${process.env.REACT_APP_BASE_URL}/register`;
-
-      passwordConfirm = passwordConfirmRef.current.value;
+      login(enteredEmail, enteredPassword, login_url)
     }
-  
-    axios.post(url, {
-      email: enteredEmail,
-      password: enteredPassword,
-      password_confirm: passwordConfirm,
-  })
-  .then(response => 
-    { 
-      // authCtx.login(response.data.access_token);
-      const tokens = {
-        access_token: response.data.access_token,
-        refreshToken: response.data.refreshToken,
-      }
+  }
 
-      dispatch(authActions.setLogin(tokens))
-      // console.log(response)
-
-      history.replace('/'); // redirect after login
-    })
-  .catch(error => {
-    let errorMessage = error.message;
-    alert(errorMessage);
-  });
-
-}
-
+     
   return (
     <div className={classes.auth}>
       <h1>{isLogin ? 'Login' : 'Sign Up'}</h1>
-      <form onSubmit={submitHandler}>
+      <form onSubmit={SubmitHandler}>
         <div className={classes.control}>
           <label htmlFor='email'>Your Email</label>
           <input type='email' id='email' required ref={emailInputRef} />
@@ -86,7 +99,8 @@ const AuthForm = () => {
         </div>
         {!isLogin && <div className={classes.control}>
           <label htmlFor='password_confirm'>Password Confirmation</label>
-          <input type='password' id='password_confirm' required ref={passwordConfirmRef} />
+          <input type='password' id='password_confirm' required 
+          ref={passwordConfirmRef} />
         </div>}
         <div className={classes.actions}>
           <button>{isLogin ? 'Login' : 'Create Account'}</button>

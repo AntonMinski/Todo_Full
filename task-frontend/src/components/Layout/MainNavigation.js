@@ -8,7 +8,7 @@ import classes from './_MainNavigation.module.scss';
 import { authActions } from '../../store/auth-slice';
 
 
-import PersonIcon from '@mui/icons-material/Person';
+// import PersonIcon from '@mui/icons-material/Person';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 

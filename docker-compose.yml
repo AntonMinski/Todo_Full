@@ -2,16 +2,30 @@ version: "3.7"
 services:
   backend:
     build:  # means: user this.Dockerfile
-      context: .
-      dockerfile: Dockerfile
+      context: ./task
+      dockerfile: ../task/Dockerfile
+    image: nest
+    env_file:
+    - ./task/.env
     ports: 
       - 8000:3000 # 8000-localhost port, 3000-container localhost port
     volumes: 
-      - .:/app  # to reflect change from app to container
+      - ./task:/app  # to reflect change from app to container
     depends_on: 
       - db # means, that db executed 1-st, than the container
 
-
+  frontend:
+        container_name: client
+        build:
+            context: ./task-frontend
+            dockerfile: Dockerfile
+        image: react
+        ports:
+            - "3000:3000"
+        volumes:
+            - ./task-frontend:/app
+        depends_on: 
+          - backend
 
   db: 
     image: postgres
@@ -23,9 +37,8 @@ services:
       POSTGRES_PASSWORD: ${NODE_ENV_DATABASE_PASSWORD} 
       POSTGRES_DB: ${NODE_ENV_DATABASE_NAME}
     volumes: 
-      - .pgdata:/var/lib/postgresql/data \
+      - .task/pgdata:/var/lib/postgresql/data \
             # copy the sql script to create tables
-      # - ./src/config/start-db.sh:/docker-entrypoint-initdb.d/start-db.sh
 
       
     

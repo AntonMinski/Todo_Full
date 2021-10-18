@@ -18,7 +18,7 @@ import { typeOrmConfigAsync } from './config/typeorm.config';
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRootAsync(typeOrmConfigAsync),
-    TodoModule,
+    TodoModule, 
     UserModule,
     AuthModule,
     CommonModule],

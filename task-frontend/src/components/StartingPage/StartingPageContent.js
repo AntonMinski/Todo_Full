@@ -42,7 +42,7 @@ const StartingPageContent = () => {
   const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   const monthLabel = monthNames[date.getMonth()]
 
-  const today = day[date.getDay()];
+  // const today = day[date.getDay()];
 
 
   const storeTasks = useSelector(state => state.tasks.tasks);

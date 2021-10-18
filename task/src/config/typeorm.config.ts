@@ -9,7 +9,7 @@ export default class TypeOrmConfig {
       port: configService.get('NODE_ENV_DATABASE_PORT'),
       username: configService.get('NODE_ENV_DATABASE_USER'),
       password: configService.get('NODE_ENV_DATABASE_PASSWORD'),
-      database: 'tododb',
+      database: configService.get('NODE_ENV_DATABASE_NAME'),
       autoLoadEntities: true,
       entities: [
       __dirname + '/../**/*.entity.ts',
