@@ -8,7 +8,7 @@ RUN npm install
 # copy all other files
 COPY . .
 
-# EXPOSE 3000
+EXPOSE 8000
 
 # runing all this code on command
 CMD [ "npm", "run", "start:dev" ]

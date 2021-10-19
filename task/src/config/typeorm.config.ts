@@ -5,11 +5,7 @@ export default class TypeOrmConfig {
   static getOrmConfig(configService: ConfigService): TypeOrmModuleOptions {
     return {
       type: 'postgres',
-      host: 'db',
-      port: configService.get('NODE_ENV_DATABASE_PORT'),
-      username: configService.get('NODE_ENV_DATABASE_USER'),
-      password: configService.get('NODE_ENV_DATABASE_PASSWORD'),
-      database: configService.get('NODE_ENV_DATABASE_NAME'),
+      url: process.env.DATABASE_URL,
       autoLoadEntities: true,
       entities: [
       __dirname + '/../**/*.entity.ts',

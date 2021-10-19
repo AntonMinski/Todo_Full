@@ -1,6 +1,7 @@
 version: "3.7"
 services:
   backend:
+    container_name: nestjsserver
     build:  # means: user this.Dockerfile
       context: ./task
       dockerfile: ../task/Dockerfile
@@ -13,6 +14,10 @@ services:
       - ./task:/app  # to reflect change from app to container
     depends_on: 
       - db # means, that db executed 1-st, than the container
+    environment: 
+            DATABASE_URL: postgres://postgres:user@db:5432/tododb
+    networks:
+            - example-net
 
   frontend:
         container_name: client
@@ -26,19 +31,46 @@ services:
             - ./task-frontend:/app
         depends_on: 
           - backend
+        networks:
+            - example-net
+
+  nginx:
+        build:
+          context: ./nginx
+          dockerfile: Dockerfile
+        container_name: nginx
+        hostname: nginx
+        ports:
+            - "80:80" 
+        depends_on:
+            - backend
+        networks:
+            - example-net
 
   db: 
     image: postgres
+    container_name: postgres
     restart: always
     ports:
       - "35000:5432"
     environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
       POSTGRES_USER: ${NODE_ENV_DATABASE_USER} 
       POSTGRES_PASSWORD: ${NODE_ENV_DATABASE_PASSWORD} 
       POSTGRES_DB: ${NODE_ENV_DATABASE_NAME}
+      # POSTGRES_PORT: ${NODE_ENV_DATABASE_PORT}
+      
     volumes: 
+      # - ./task/src/config/start-db.sh:/docker-entrypoint-initdb.d/start-db.sh
       - .task/pgdata:/var/lib/postgresql/data \
             # copy the sql script to create tables
+    networks:
+      example-net:
+
+networks:
+  example-net:
+    external: true
+  
 
       
     
