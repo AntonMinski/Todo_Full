@@ -14,11 +14,7 @@ services:
       - ./task:/app  # to reflect change from app to container
     depends_on: 
       - db # means, that db executed 1-st, than the container
-    environment: 
-            DATABASE_URL: postgres://postgres:user@db:5432/tododb
-    networks:
-            - example-net
-
+   
   frontend:
         container_name: client
         build:
@@ -31,8 +27,6 @@ services:
             - ./task-frontend:/app
         depends_on: 
           - backend
-        networks:
-            - example-net
 
   nginx:
         build:
@@ -44,8 +38,6 @@ services:
             - "80:80" 
         depends_on:
             - backend
-        networks:
-            - example-net
 
   db: 
     image: postgres
@@ -61,15 +53,11 @@ services:
       # POSTGRES_PORT: ${NODE_ENV_DATABASE_PORT}
       
     volumes: 
-      # - ./task/src/config/start-db.sh:/docker-entrypoint-initdb.d/start-db.sh
+      
       - .task/pgdata:/var/lib/postgresql/data \
             # copy the sql script to create tables
-    networks:
-      example-net:
+      # - ./task/src/config/start-db.sh:/docker-entrypoint-initdb.d/start-db.sh
 
-networks:
-  example-net:
-    external: true
   
 
       

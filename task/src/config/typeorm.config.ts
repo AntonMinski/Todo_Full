@@ -3,9 +3,14 @@ import { TypeOrmModuleAsyncOptions, TypeOrmModuleOptions } from '@nestjs/typeorm
 
 export default class TypeOrmConfig {
   static getOrmConfig(configService: ConfigService): TypeOrmModuleOptions {
+    
+    const user = configService.get('NODE_ENV_DATABASE_USER');
+    const password = configService.get('NODE_ENV_DATABASE_PASSWORD');
+    const dbName = configService.get('NODE_ENV_DATABASE_NAME');
+
     return {
       type: 'postgres',
-      url: process.env.DATABASE_URL,
+      url: `postgres://${user}:${password}@db:5432/${dbName}`,
       autoLoadEntities: true,
       entities: [
       __dirname + '/../**/*.entity.ts',
