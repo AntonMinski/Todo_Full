@@ -1,10 +1,11 @@
 version: "3.7"
 services:
   backend:
-    container_name: nestjsserver
+    container_name: nestjs
     build:  # means: user this.Dockerfile
       context: ./task
-      dockerfile: ../task/Dockerfile
+      dockerfile: Dockerfile
+    command: npm run start:dev
     image: nest
     env_file:
     - ./task/.env
@@ -16,7 +17,7 @@ services:
       - db # means, that db executed 1-st, than the container
    
   frontend:
-        container_name: client
+        container_name: react
         build:
             context: ./task-frontend
             dockerfile: Dockerfile
@@ -25,8 +26,10 @@ services:
             - "3000:3000"
         volumes:
             - ./task-frontend:/app
-        depends_on: 
-          - backend
+            # solve problems with sass-node:
+            - /app/node_modules/
+        # depends_on: 
+        #   - backend
 
   nginx:
         build:
@@ -36,8 +39,8 @@ services:
         hostname: nginx
         ports:
             - "80:80" 
-        depends_on:
-            - backend
+        # depends_on:
+        #     - backend
 
   db: 
     image: postgres

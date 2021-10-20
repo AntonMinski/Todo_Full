@@ -1,4 +1,4 @@
-FROM node:10.19.0
+FROM node:10.19.0-alpine
 
 # optional: rename working directory
 WORKDIR /app
@@ -11,7 +11,7 @@ COPY . .
 EXPOSE 8000
 
 # runing all this code on command
-CMD [ "npm", "run", "start:dev" ]
+# CMD [ "npm", "run", "start:dev" ]
 # CMD npm run start:dev 
 
 

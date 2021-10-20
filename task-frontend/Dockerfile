@@ -1,15 +1,15 @@
-FROM node:10.19.0
+FROM node:10.19.0-alpine
 
 WORKDIR /app
-
+ 
 COPY package.json ./ 
 
-RUN yarn add
+RUN npm install
 
 COPY . .
 
 EXPOSE 3000
 
-CMD ["yarn", "start"]`
+CMD ["npm", "start"]
 
 
