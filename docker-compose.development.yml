@@ -21,15 +21,19 @@ services:
         build:
             context: ./task-frontend
             dockerfile: Dockerfile
-        command: serve -s build -l 3000
         image: react
         ports:
             - "3000:3000"
-        # volumes:
-            # - ./task-frontend:/app
-            # # solve problems with sass-node:
-            # - /app/node_modules/
-        
+        volumes:
+            - ./task-frontend:/app
+            # solve problems with sass-node:
+            - /app/node_modules/
+        # interactive console:
+        stdin_open: true
+        tty: true
+        # depends_on: 
+        #   - backend
+
   nginx:
         build:
           context: ./nginx
@@ -38,10 +42,8 @@ services:
         hostname: nginx
         ports:
             - "80:80" 
-        depends_on:
-            - frontend
-        volumes:
-          - ./nginx/default.conf:/etc/nginx/conf.d/nginx.conf
+        # depends_on:
+        #     - backend
 
   db: 
     image: postgres
@@ -59,6 +61,8 @@ services:
       - .task/pgdata:/var/lib/postgresql/data \
             # copy the sql script to create tables
       # - ./task/src/config/start-db.sh:/docker-entrypoint-initdb.d/start-db.sh
+
+  
 
       
     
