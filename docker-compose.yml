@@ -5,7 +5,7 @@ services:
     build:  # means: user this.Dockerfile
       context: ./task
       dockerfile: Dockerfile
-    command: npm run start:dev
+    command: npm run start:prod
     image: nest
     env_file:
     - ./task/.env
