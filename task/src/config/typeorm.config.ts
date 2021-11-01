@@ -15,7 +15,7 @@ export default class TypeOrmConfig {
       entities: [
       __dirname + '/../**/*.entity.ts',
     ],
-      synchronize: true,
+      // synchronize: true,
     //   logging: true,
     };
   }

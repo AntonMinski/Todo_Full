@@ -40,8 +40,8 @@ services:
             - "80:80" 
         depends_on:
             - frontend
-        volumes:
-          - ./nginx/default.conf:/etc/nginx/conf.d/nginx.conf
+        # volumes:
+          # - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
 
   db: 
     image: postgres
@@ -56,9 +56,9 @@ services:
       POSTGRES_DB: ${NODE_ENV_DATABASE_NAME}
       # POSTGRES_PORT: ${NODE_ENV_DATABASE_PORT}
     volumes:  
-      - .task/pgdata:/var/lib/postgresql/data \
+      - ./task/pgdata:/var/lib/postgresql/data \
             # copy the sql script to create tables
-      # - ./task/src/config/start-db.sh:/docker-entrypoint-initdb.d/start-db.sh
+      # - ./task/script/start-db.sh:/docker-entrypoint-initdb.d/start-db.sh
 
       
     

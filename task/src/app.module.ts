@@ -12,6 +12,7 @@ import { HttpLoggerMiddleware } from '@nest-toolbox/http-logger-middleware';
 
 import { ConfigModule } from '@nestjs/config';
 import { typeOrmConfigAsync } from './config/typeorm.config';
+import { VideosModule } from './videos/videos.module';
 
 
 @Module({
@@ -21,7 +22,8 @@ import { typeOrmConfigAsync } from './config/typeorm.config';
     TodoModule, 
     UserModule,
     AuthModule,
-    CommonModule],
+    CommonModule,
+    VideosModule],
   controllers: [AppController],
   providers: [
     AppService]

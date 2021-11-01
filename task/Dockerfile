@@ -11,7 +11,7 @@ COPY . .
 EXPOSE 8000
 
 # runing all this code on command
-# CMD [ "npm", "run", "start:dev" ]
+CMD [ "npm", "run", "start:dev" ]
 # CMD npm run start:dev 
 
 
